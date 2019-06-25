@@ -1,8 +1,8 @@
 FROM alpine:3.8
 
 RUN apk add --no-cache curl \
-    && curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.14.3/bin/linux/amd64/kubectl -o /kubectl \
-    && chmod +x /kubectl \
+    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.14.3/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl \
     && apk del curl
 
 # Bring in gettext so we can get `envsubst`, then throw
@@ -27,3 +27,4 @@ RUN apk add --no-cache git
 
 RUN apk add --no-cache openssh-client
 
+ENTRYPOINT [ "/usr/local/bin/kubectl" ]
