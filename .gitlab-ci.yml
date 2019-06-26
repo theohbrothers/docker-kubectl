@@ -72,6 +72,13 @@ build-git:
     VARIANT_TAG_WITH_VERSION: git-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/git
 
+build-kustomize:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: kustomize
+    VARIANT_TAG_WITH_VERSION: kustomize-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/kustomize
+
 build-jq:
   <<: *build_definition
   variables:
@@ -93,19 +100,47 @@ build-envsubst-git:
     VARIANT_TAG_WITH_VERSION: envsubst-git-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/envsubst-git
 
-build-envsubst-git-jq:
+build-envsubst-git-kustomize:
   <<: *build_definition
   variables:
-    VARIANT_TAG: envsubst-git-jq
-    VARIANT_TAG_WITH_VERSION: envsubst-git-jq-$CI_COMMIT_REF_NAME
-    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-jq
+    VARIANT_TAG: envsubst-git-kustomize
+    VARIANT_TAG_WITH_VERSION: envsubst-git-kustomize-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-kustomize
 
-build-envsubst-git-jq-ssh:
+build-envsubst-git-kustomize-jq:
   <<: *build_definition
   variables:
-    VARIANT_TAG: envsubst-git-jq-ssh
-    VARIANT_TAG_WITH_VERSION: envsubst-git-jq-ssh-$CI_COMMIT_REF_NAME
-    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-jq-ssh
+    VARIANT_TAG: envsubst-git-kustomize-jq
+    VARIANT_TAG_WITH_VERSION: envsubst-git-kustomize-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-kustomize-jq
+
+build-envsubst-git-kustomize-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-git-kustomize-jq-ssh
+    VARIANT_TAG_WITH_VERSION: envsubst-git-kustomize-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-kustomize-jq-ssh
+
+build-envsubst-kustomize:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-kustomize
+    VARIANT_TAG_WITH_VERSION: envsubst-kustomize-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-kustomize
+
+build-envsubst-kustomize-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-kustomize-jq
+    VARIANT_TAG_WITH_VERSION: envsubst-kustomize-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-kustomize-jq
+
+build-envsubst-kustomize-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-kustomize-jq-ssh
+    VARIANT_TAG_WITH_VERSION: envsubst-kustomize-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-kustomize-jq-ssh
 
 build-envsubst-jq:
   <<: *build_definition
@@ -121,12 +156,26 @@ build-envsubst-jq-ssh:
     VARIANT_TAG_WITH_VERSION: envsubst-jq-ssh-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/envsubst-jq-ssh
 
-build-envsubst-ssh:
+build-git-kustomize:
   <<: *build_definition
   variables:
-    VARIANT_TAG: envsubst-ssh
-    VARIANT_TAG_WITH_VERSION: envsubst-ssh-$CI_COMMIT_REF_NAME
-    VARIANT_BUILD_DIR: variants/alpine/envsubst-ssh
+    VARIANT_TAG: git-kustomize
+    VARIANT_TAG_WITH_VERSION: git-kustomize-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-kustomize
+
+build-git-kustomize-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: git-kustomize-jq
+    VARIANT_TAG_WITH_VERSION: git-kustomize-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-kustomize-jq
+
+build-git-kustomize-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: git-kustomize-jq-ssh
+    VARIANT_TAG_WITH_VERSION: git-kustomize-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-kustomize-jq-ssh
 
 build-git-jq:
   <<: *build_definition
@@ -148,6 +197,27 @@ build-git-ssh:
     VARIANT_TAG: git-ssh
     VARIANT_TAG_WITH_VERSION: git-ssh-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/git-ssh
+
+build-kustomize-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: kustomize-jq
+    VARIANT_TAG_WITH_VERSION: kustomize-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/kustomize-jq
+
+build-kustomize-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: kustomize-jq-ssh
+    VARIANT_TAG_WITH_VERSION: kustomize-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/kustomize-jq-ssh
+
+build-kustomize-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: kustomize-ssh
+    VARIANT_TAG_WITH_VERSION: kustomize-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/kustomize-ssh
 
 build-jq-ssh:
   <<: *build_definition
