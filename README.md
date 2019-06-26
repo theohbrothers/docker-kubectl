@@ -8,7 +8,15 @@ Dockerized `kubectl` alpine image with some optional tools
 |:-------:| 
 | `:envsubst` | 
 | `:git` | 
+| `:jq` | 
 | `:ssh` | 
 | `:envsubst-git` | 
-| `:envsubst-git-ssh` | 
-| `:envsubst-ssh` |
+| `:envsubst-git-jq` | 
+| `:envsubst-git-jq-ssh` | 
+| `:envsubst-jq` | 
+| `:envsubst-jq-ssh` | 
+| `:envsubst-ssh` | 
+| `:git-jq` | 
+| `:git-jq-ssh` | 
+| `:git-ssh` | 
+| `:jq-ssh` |

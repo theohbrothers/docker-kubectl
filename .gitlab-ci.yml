@@ -72,6 +72,13 @@ build-git:
     VARIANT_TAG_WITH_VERSION: git-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/git
 
+build-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: jq
+    VARIANT_TAG_WITH_VERSION: jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/jq
+
 build-ssh:
   <<: *build_definition
   variables:
@@ -86,12 +93,33 @@ build-envsubst-git:
     VARIANT_TAG_WITH_VERSION: envsubst-git-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/envsubst-git
 
-build-envsubst-git-ssh:
+build-envsubst-git-jq:
   <<: *build_definition
   variables:
-    VARIANT_TAG: envsubst-git-ssh
-    VARIANT_TAG_WITH_VERSION: envsubst-git-ssh-$CI_COMMIT_REF_NAME
-    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-ssh
+    VARIANT_TAG: envsubst-git-jq
+    VARIANT_TAG_WITH_VERSION: envsubst-git-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-jq
+
+build-envsubst-git-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-git-jq-ssh
+    VARIANT_TAG_WITH_VERSION: envsubst-git-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-git-jq-ssh
+
+build-envsubst-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-jq
+    VARIANT_TAG_WITH_VERSION: envsubst-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-jq
+
+build-envsubst-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: envsubst-jq-ssh
+    VARIANT_TAG_WITH_VERSION: envsubst-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/envsubst-jq-ssh
 
 build-envsubst-ssh:
   <<: *build_definition
@@ -99,3 +127,31 @@ build-envsubst-ssh:
     VARIANT_TAG: envsubst-ssh
     VARIANT_TAG_WITH_VERSION: envsubst-ssh-$CI_COMMIT_REF_NAME
     VARIANT_BUILD_DIR: variants/alpine/envsubst-ssh
+
+build-git-jq:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: git-jq
+    VARIANT_TAG_WITH_VERSION: git-jq-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-jq
+
+build-git-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: git-jq-ssh
+    VARIANT_TAG_WITH_VERSION: git-jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-jq-ssh
+
+build-git-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: git-ssh
+    VARIANT_TAG_WITH_VERSION: git-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/git-ssh
+
+build-jq-ssh:
+  <<: *build_definition
+  variables:
+    VARIANT_TAG: jq-ssh
+    VARIANT_TAG_WITH_VERSION: jq-ssh-$CI_COMMIT_REF_NAME
+    VARIANT_BUILD_DIR: variants/alpine/jq-ssh
