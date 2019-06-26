@@ -10,6 +10,10 @@ $VARIANTS = @(
         distro = 'alpine'
     }
     @{
+        tag = 'kustomize'
+        distro = 'alpine'
+    }
+    @{
         tag = 'jq'
         distro = 'alpine'
     }
@@ -22,11 +26,27 @@ $VARIANTS = @(
         distro = 'alpine'
     }
     @{
-        tag = 'envsubst-git-jq'
+        tag = 'envsubst-git-kustomize'
         distro = 'alpine'
     }
     @{
-        tag = 'envsubst-git-jq-ssh'
+        tag = 'envsubst-git-kustomize-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-git-kustomize-jq-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-kustomize'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-kustomize-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-kustomize-jq-ssh'
         distro = 'alpine'
     }
     @{
@@ -38,7 +58,15 @@ $VARIANTS = @(
         distro = 'alpine'
     }
     @{
-        tag = 'envsubst-ssh'
+        tag = 'git-kustomize'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'git-kustomize-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'git-kustomize-jq-ssh'
         distro = 'alpine'
     }
     @{
@@ -51,6 +79,18 @@ $VARIANTS = @(
     }
     @{
         tag = 'git-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'kustomize-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'kustomize-jq-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'kustomize-ssh'
         distro = 'alpine'
     }
     @{
