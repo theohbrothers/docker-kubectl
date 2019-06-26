@@ -10,6 +10,10 @@ $VARIANTS = @(
         distro = 'alpine'
     }
     @{
+        tag = 'jq'
+        distro = 'alpine'
+    }
+    @{
         tag = 'ssh'
         distro = 'alpine'
     }
@@ -18,11 +22,39 @@ $VARIANTS = @(
         distro = 'alpine'
     }
     @{
-        tag = 'envsubst-git-ssh'
+        tag = 'envsubst-git-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-git-jq-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'envsubst-jq-ssh'
         distro = 'alpine'
     }
     @{
         tag = 'envsubst-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'git-jq'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'git-jq-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'git-ssh'
+        distro = 'alpine'
+    }
+    @{
+        tag = 'jq-ssh'
         distro = 'alpine'
     }
 )
