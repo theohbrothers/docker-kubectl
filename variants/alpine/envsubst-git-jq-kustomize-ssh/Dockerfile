@@ -23,4 +23,15 @@ RUN apk add --no-cache --virtual .gettext gettext \
     && apk del .gettext \
     && mv /tmp/envsubst /usr/local/bin/
 
+RUN apk add --no-cache git
+
+RUN apk add --no-cache jq
+
+RUN apk add --no-cache curl \
+    && curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/v3.0.2/kustomize_3.0.2_linux_amd64 -o /usr/local/bin/kustomize \
+    && chmod +x /usr/local/bin/kustomize \
+    && apk del curl
+
+RUN apk add --no-cache openssh-client
+
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]
