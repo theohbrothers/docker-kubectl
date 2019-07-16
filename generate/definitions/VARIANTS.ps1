@@ -1,5 +1,5 @@
 # Docker image variants' definitions
-$VARIANTS_VERSION = "v1.14.4"
+$VARIANTS_VERSION = "v1.15.0"
 $VARIANTS = @(
     @{
         tag = 'envsubst'
