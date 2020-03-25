@@ -1,6 +1,6 @@
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
-    'v1.14.10', 'v1.15.11', 'v1.16.8' | % {
+    'v1.14.10', 'v1.15.11', 'v1.16.8', 'v1.17.4' | % {
         @{
             package_version = $_
             distro = 'alpine'
