@@ -1,7 +1,7 @@
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
     @{
-        package_version = 'v1.14.3'
+        package_version = 'v1.14.10'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
