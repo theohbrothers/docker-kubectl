@@ -1,10 +1,11 @@
 FROM alpine:3.8
 
 RUN apk add --no-cache curl \
-    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.14.3/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && apk del curl
 
+# From: https://github.com/nginxinc/docker-nginx/blob/1.17.0/stable/alpine/Dockerfile
 # Bring in gettext so we can get `envsubst`, then throw
 # the rest away. To do this, we need to install `gettext`
 # then move `envsubst` out of the way so `gettext` can
@@ -23,15 +24,6 @@ RUN apk add --no-cache --virtual .gettext gettext \
     && apk del .gettext \
     && mv /tmp/envsubst /usr/local/bin/
 
-RUN apk add --no-cache git
 
-RUN apk add --no-cache jq
-
-RUN apk add --no-cache curl \
-    && curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/v2.0.3/kustomize_2.0.3_linux_amd64 -o /usr/local/bin/kustomize \
-    && chmod +x /usr/local/bin/kustomize \
-    && apk del curl
-
-RUN apk add --no-cache openssh-client
 
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]

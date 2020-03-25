@@ -6,12 +6,12 @@ on:
     - release
 
 jobs:
-  build-envsubst:
+  build-v1-14-3-envsubst-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: envsubst
-      # VARIANT_TAG_WITH_REF: envsubst-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/envsubst
+      VARIANT_TAG: v1.14.3-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-envsubst-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -59,12 +59,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-git:
+  build-v1-14-3-git-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: git
-      # VARIANT_TAG_WITH_REF: git-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/git
+      VARIANT_TAG: v1.14.3-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-git-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -112,12 +112,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-jq:
+  build-v1-14-3-jq-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: jq
-      # VARIANT_TAG_WITH_REF: jq-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/jq
+      VARIANT_TAG: v1.14.3-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-jq-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -165,12 +165,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-kustomize:
+  build-v1-14-3-kustomize-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: kustomize
-      # VARIANT_TAG_WITH_REF: kustomize-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/kustomize
+      VARIANT_TAG: v1.14.3-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-kustomize-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -218,12 +218,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-ssh:
+  build-v1-14-3-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: ssh
-      # VARIANT_TAG_WITH_REF: ssh-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/ssh
+      VARIANT_TAG: v1.14.3-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -271,12 +271,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-envsubst-git-jq-kustomize-ssh:
+  build-v1-14-3-envsubst-git-jq-kustomize-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: envsubst-git-jq-kustomize-ssh
-      # VARIANT_TAG_WITH_REF: envsubst-git-jq-kustomize-ssh-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/alpine/envsubst-git-jq-kustomize-ssh
+      VARIANT_TAG: v1.14.3-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.3-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.3-envsubst-git-jq-kustomize-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
