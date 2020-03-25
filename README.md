@@ -19,4 +19,10 @@ Dockerized `kubectl` alpine image with some optional tools
 | `:v1.15.11-jq-alpine-3.8` | 
 | `:v1.15.11-kustomize-alpine-3.8` | 
 | `:v1.15.11-ssh-alpine-3.8` | 
-| `:v1.15.11-envsubst-git-jq-kustomize-ssh-alpine-3.8` |
+| `:v1.15.11-envsubst-git-jq-kustomize-ssh-alpine-3.8` | 
+| `:v1.16.8-envsubst-alpine-3.8` | 
+| `:v1.16.8-git-alpine-3.8` | 
+| `:v1.16.8-jq-alpine-3.8` | 
+| `:v1.16.8-kustomize-alpine-3.8` | 
+| `:v1.16.8-ssh-alpine-3.8` | 
+| `:v1.16.8-envsubst-git-jq-kustomize-ssh-alpine-3.8` |
