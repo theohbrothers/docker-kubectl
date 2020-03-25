@@ -1,17 +1,19 @@
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
-    @{
-        package_version = 'v1.14.10'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
+    'v1.14.10', 'v1.15.11' | % {
+        @{
+            package_version = $_
+            distro = 'alpine'
+            distro_version = '3.8'
+            subvariants = @(
+                @{ components = @( 'envsubst' ) }
+                @{ components = @( 'git' ) }
+                @{ components = @( 'jq' ) }
+                @{ components = @( 'kustomize' ) }
+                @{ components = @( 'ssh' ) }
+                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+            )
+        }
     }
 )
 $VARIANTS = @(
