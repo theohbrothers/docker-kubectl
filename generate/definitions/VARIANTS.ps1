@@ -1,19 +1,74 @@
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
-    'v1.14.10', 'v1.15.11', 'v1.16.8', 'v1.17.4' | % {
-        @{
-            package_version = $_
-            distro = 'alpine'
-            distro_version = '3.8'
-            subvariants = @(
-                @{ components = @( 'envsubst' ) }
-                @{ components = @( 'git' ) }
-                @{ components = @( 'jq' ) }
-                @{ components = @( 'kustomize' ) }
-                @{ components = @( 'ssh' ) }
-                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-            )
-        }
+    @{
+        package_version = 'v1.14.10'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
+    @{
+        package_version = 'v1.15.11'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
+    @{
+        package_version = 'v1.16.8'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
+    @{
+        package_version = 'v1.17.4'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
+    @{
+        package_version = 'v1.18.0'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @(); tag_as_latest = $true }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
     }
 )
 $VARIANTS = @(
