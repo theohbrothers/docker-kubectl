@@ -56,6 +56,20 @@ $local:VARIANTS_MATRIX = @(
             @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
         )
     }
+    @{
+        package_version = 'v1.18.0'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
 )
 $VARIANTS = @(
     foreach ($variant in $VARIANTS_MATRIX){
