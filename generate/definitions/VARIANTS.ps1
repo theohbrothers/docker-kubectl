@@ -6,6 +6,7 @@ $local:VARIANTS_MATRIX = @(
             distro = 'alpine'
             distro_version = '3.8'
             subvariants = @(
+                @{ components = @() }
                 @{ components = @( 'envsubst' ) }
                 @{ components = @( 'git' ) }
                 @{ components = @( 'jq' ) }
