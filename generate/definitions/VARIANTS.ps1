@@ -43,7 +43,7 @@ $local:VARIANTS_MATRIX = @(
         )
     }
     @{
-        package_version = 'v1.17.4'
+        package_version = 'v1.17.13'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
