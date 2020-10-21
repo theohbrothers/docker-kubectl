@@ -15,7 +15,7 @@ $local:VARIANTS_MATRIX = @(
         )
     }
     @{
-        package_version = 'v1.15.11'
+        package_version = 'v1.15.12'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
@@ -29,7 +29,7 @@ $local:VARIANTS_MATRIX = @(
         )
     }
     @{
-        package_version = 'v1.16.8'
+        package_version = 'v1.16.15'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
@@ -43,7 +43,7 @@ $local:VARIANTS_MATRIX = @(
         )
     }
     @{
-        package_version = 'v1.17.4'
+        package_version = 'v1.17.13'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
@@ -57,7 +57,21 @@ $local:VARIANTS_MATRIX = @(
         )
     }
     @{
-        package_version = 'v1.18.0'
+        package_version = 'v1.18.10'
+        distro = 'alpine'
+        distro_version = '3.8'
+        subvariants = @(
+            @{ components = @() }
+            @{ components = @( 'envsubst' ) }
+            @{ components = @( 'git' ) }
+            @{ components = @( 'jq' ) }
+            @{ components = @( 'kustomize' ) }
+            @{ components = @( 'ssh' ) }
+            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+        )
+    }
+    @{
+        package_version = 'v1.19.3'
         distro = 'alpine'
         distro_version = '3.8'
         subvariants = @(
