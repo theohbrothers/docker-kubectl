@@ -1,88 +1,28 @@
+$local:VARIANTS_PACKAGE_VERSIONS = @(
+    'v1.14.10'
+    'v1.15.12'
+    'v1.16.15'
+    'v1.17.13'
+    'v1.18.10'
+    'v1.19.3'
+)
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
-    @{
-        package_version = 'v1.14.10'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @() }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
-    }
-    @{
-        package_version = 'v1.15.12'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @() }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
-    }
-    @{
-        package_version = 'v1.16.15'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @() }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
-    }
-    @{
-        package_version = 'v1.17.13'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @() }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
-    }
-    @{
-        package_version = 'v1.18.10'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @() }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
-    }
-    @{
-        package_version = 'v1.19.3'
-        distro = 'alpine'
-        distro_version = '3.8'
-        subvariants = @(
-            @{ components = @(); tag_as_latest = $true }
-            @{ components = @( 'envsubst' ) }
-            @{ components = @( 'git' ) }
-            @{ components = @( 'jq' ) }
-            @{ components = @( 'kustomize' ) }
-            @{ components = @( 'ssh' ) }
-            @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
-        )
+    foreach ($v in $local:VARIANTS_PACKAGE_VERSIONS) {
+        @{
+            package_version = $v
+            distro = 'alpine'
+            distro_version = '3.8'
+            subvariants = @(
+                @{ components = @(); tag_as_latest = if ($v -eq $local:VARIANTS_PACKAGE_VERSIONS[$local:VARIANTS_PACKAGE_VERSIONS.Count - 1]) { $true } else { $false } }
+                @{ components = @( 'envsubst' ) }
+                @{ components = @( 'git' ) }
+                @{ components = @( 'jq' ) }
+                @{ components = @( 'kustomize' ) }
+                @{ components = @( 'ssh' ) }
+                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+            )
+        }
     }
 )
 $VARIANTS = @(
