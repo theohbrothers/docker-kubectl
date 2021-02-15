@@ -1,10 +1,10 @@
 $local:VARIANTS_PACKAGE_VERSIONS = @(
-    'v1.14.10'
-    'v1.15.12'
-    'v1.16.15'
-    'v1.17.13'
-    'v1.18.10'
     'v1.19.3'
+    'v1.18.10'
+    'v1.17.13'
+    'v1.16.15'
+    'v1.15.12'
+    'v1.14.10'
 )
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
