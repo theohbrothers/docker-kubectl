@@ -14,7 +14,7 @@ $local:VARIANTS_MATRIX = @(
             distro = 'alpine'
             distro_version = '3.8'
             subvariants = @(
-                @{ components = @(); tag_as_latest = if ($v -eq $local:VARIANTS_PACKAGE_VERSIONS[$local:VARIANTS_PACKAGE_VERSIONS.Count - 1]) { $true } else { $false } }
+                @{ components = @(); tag_as_latest = if ($v -eq $local:VARIANTS_PACKAGE_VERSIONS[0]) { $true } else { $false } }
                 @{ components = @( 'envsubst' ) }
                 @{ components = @( 'git' ) }
                 @{ components = @( 'jq' ) }
