@@ -9,12 +9,12 @@ on:
     - master
 
 jobs:
-  build-v1-14-10-alpine-3-8:
+  build-v1-20-2-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-alpine-3.8
+      VARIANT_TAG: v1.20.2-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -60,12 +60,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-envsubst-alpine-3-8:
+  build-v1-20-2-envsubst-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-envsubst-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-envsubst-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-envsubst-alpine-3.8
+      VARIANT_TAG: v1.20.2-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-envsubst-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -111,12 +111,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-git-alpine-3-8:
+  build-v1-20-2-git-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-git-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-git-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-git-alpine-3.8
+      VARIANT_TAG: v1.20.2-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-git-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -162,12 +162,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-jq-alpine-3-8:
+  build-v1-20-2-jq-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-jq-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-jq-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-jq-alpine-3.8
+      VARIANT_TAG: v1.20.2-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-jq-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -213,12 +213,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-kustomize-alpine-3-8:
+  build-v1-20-2-kustomize-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-kustomize-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-kustomize-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-kustomize-alpine-3.8
+      VARIANT_TAG: v1.20.2-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-kustomize-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -264,12 +264,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-ssh-alpine-3-8:
+  build-v1-20-2-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-ssh-alpine-3.8
+      VARIANT_TAG: v1.20.2-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -315,12 +315,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-14-10-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+  build-v1-20-2-envsubst-git-jq-kustomize-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      VARIANT_TAG: v1.20.2-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.20.2-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.20.2-envsubst-git-jq-kustomize-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -366,12 +366,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-alpine-3-8:
+  build-v1-19-7-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-alpine-3.8
+      VARIANT_TAG: v1.19.7-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -417,12 +417,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-envsubst-alpine-3-8:
+  build-v1-19-7-envsubst-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-envsubst-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-envsubst-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-envsubst-alpine-3.8
+      VARIANT_TAG: v1.19.7-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-envsubst-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -468,12 +468,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-git-alpine-3-8:
+  build-v1-19-7-git-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-git-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-git-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-git-alpine-3.8
+      VARIANT_TAG: v1.19.7-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-git-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -519,12 +519,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-jq-alpine-3-8:
+  build-v1-19-7-jq-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-jq-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-jq-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-jq-alpine-3.8
+      VARIANT_TAG: v1.19.7-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-jq-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -570,12 +570,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-kustomize-alpine-3-8:
+  build-v1-19-7-kustomize-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-kustomize-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-kustomize-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-kustomize-alpine-3.8
+      VARIANT_TAG: v1.19.7-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-kustomize-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -621,12 +621,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-ssh-alpine-3-8:
+  build-v1-19-7-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-ssh-alpine-3.8
+      VARIANT_TAG: v1.19.7-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -672,12 +672,726 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-15-12-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+  build-v1-19-7-envsubst-git-jq-kustomize-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      VARIANT_TAG: v1.19.7-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.19.7-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.19.7-envsubst-git-jq-kustomize-ssh-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-envsubst-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-envsubst-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-git-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-git-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-jq-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-jq-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-kustomize-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-kustomize-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-ssh-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-ssh-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-18-15-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.18.15-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.18.15-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.18.15-envsubst-git-jq-kustomize-ssh-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-envsubst-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-envsubst-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-git-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-git-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-jq-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-jq-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-kustomize-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-kustomize-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-ssh-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-ssh-alpine-3.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Display system info (linux)
+      run: |
+        set -e
+        hostname
+        whoami
+        cat /etc/*release
+        lscpu
+        free
+        df -h
+        pwd
+        docker info
+        docker version
+    - name: Login to docker registry
+      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
+    - name: Build and push image
+      env:
+        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
+      run: |
+        set -e
+
+        # Get 'project-name' from 'namespace/project-name'
+        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get 'ref-name' from 'refs/heads/ref-name'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
+        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
+        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
+
+        docker build \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
+          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
+          "${VARIANT_BUILD_DIR}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
+        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
+    - name: Clean-up
+      run: docker logout
+      if: always()
+  build-v1-17-17-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+    runs-on: ubuntu-18.04
+    env:
+      VARIANT_TAG: v1.17.17-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.17.17-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.17.17-envsubst-git-jq-kustomize-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1080,12 +1794,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-alpine-3-8:
+  build-v1-15-12-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-alpine-3.8
+      VARIANT_TAG: v1.15.12-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1131,12 +1845,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-envsubst-alpine-3-8:
+  build-v1-15-12-envsubst-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-envsubst-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-envsubst-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-envsubst-alpine-3.8
+      VARIANT_TAG: v1.15.12-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-envsubst-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1182,12 +1896,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-git-alpine-3-8:
+  build-v1-15-12-git-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-git-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-git-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-git-alpine-3.8
+      VARIANT_TAG: v1.15.12-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-git-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1233,12 +1947,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-jq-alpine-3-8:
+  build-v1-15-12-jq-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-jq-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-jq-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-jq-alpine-3.8
+      VARIANT_TAG: v1.15.12-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-jq-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1284,12 +1998,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-kustomize-alpine-3-8:
+  build-v1-15-12-kustomize-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-kustomize-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-kustomize-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-kustomize-alpine-3.8
+      VARIANT_TAG: v1.15.12-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-kustomize-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1335,12 +2049,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-ssh-alpine-3-8:
+  build-v1-15-12-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-ssh-alpine-3.8
+      VARIANT_TAG: v1.15.12-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1386,12 +2100,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-17-13-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+  build-v1-15-12-envsubst-git-jq-kustomize-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.17.13-envsubst-git-jq-kustomize-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.17.13-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.17.13-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      VARIANT_TAG: v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.15.12-envsubst-git-jq-kustomize-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1437,12 +2151,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-alpine-3-8:
+  build-v1-14-10-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-alpine-3.8
+      VARIANT_TAG: v1.14.10-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1488,12 +2202,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-envsubst-alpine-3-8:
+  build-v1-14-10-envsubst-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-envsubst-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-envsubst-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-envsubst-alpine-3.8
+      VARIANT_TAG: v1.14.10-envsubst-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-envsubst-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-envsubst-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1539,12 +2253,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-git-alpine-3-8:
+  build-v1-14-10-git-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-git-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-git-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-git-alpine-3.8
+      VARIANT_TAG: v1.14.10-git-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-git-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-git-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1590,12 +2304,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-jq-alpine-3-8:
+  build-v1-14-10-jq-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-jq-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-jq-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-jq-alpine-3.8
+      VARIANT_TAG: v1.14.10-jq-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-jq-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-jq-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1641,12 +2355,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-kustomize-alpine-3-8:
+  build-v1-14-10-kustomize-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-kustomize-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-kustomize-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-kustomize-alpine-3.8
+      VARIANT_TAG: v1.14.10-kustomize-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-kustomize-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-kustomize-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1692,12 +2406,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-ssh-alpine-3-8:
+  build-v1-14-10-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-ssh-alpine-3.8
+      VARIANT_TAG: v1.14.10-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
@@ -1743,369 +2457,12 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
-  build-v1-18-10-envsubst-git-jq-kustomize-ssh-alpine-3-8:
+  build-v1-14-10-envsubst-git-jq-kustomize-ssh-alpine-3-8:
     runs-on: ubuntu-18.04
     env:
-      VARIANT_TAG: v1.18.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.18.10-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.18.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-envsubst-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-envsubst-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-envsubst-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-envsubst-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-git-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-git-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-git-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-git-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-jq-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-jq-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-jq-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-jq-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-kustomize-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-kustomize-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-kustomize-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-kustomize-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-ssh-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-ssh-alpine-3.8
-    steps:
-    - uses: actions/checkout@v1
-    - name: Display system info (linux)
-      run: |
-        set -e
-        hostname
-        whoami
-        cat /etc/*release
-        lscpu
-        free
-        df -h
-        pwd
-        docker info
-        docker version
-    - name: Login to docker registry
-      run: echo "${DOCKERHUB_REGISTRY_PASSWORD}" | docker login -u "${DOCKERHUB_REGISTRY_USER}" --password-stdin
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-        DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_REGISTRY_PASSWORD }}
-    - name: Build and push image
-      env:
-        DOCKERHUB_REGISTRY_USER: ${{ secrets.DOCKERHUB_REGISTRY_USER }}
-      run: |
-        set -e
-
-        # Get 'project-name' from 'namespace/project-name'
-        CI_PROJECT_NAME=$( echo "${GITHUB_REPOSITORY}" | rev | cut -d '/' -f 1 | rev )
-
-        # Get 'ref-name' from 'refs/heads/ref-name'
-        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
-        SHA_SHORT=$( echo "${GITHUB_SHA}" | cut -c1-7 )
-
-        # Generate the final tags. E.g. 'master-v1.0.0-alpine' and 'master-b29758a-v1.0.0-alpine'
-        VARIANT_TAG_WITH_REF="${REF}-${VARIANT_TAG}"
-        VARIANT_TAG_WITH_REF_AND_SHA_SHORT="${REF}-${SHA_SHORT}-${VARIANT_TAG}"
-
-        docker build \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}" \
-          -t "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}" \
-          "${VARIANT_BUILD_DIR}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF}"
-        docker push "${DOCKERHUB_REGISTRY_USER}/${CI_PROJECT_NAME}:${VARIANT_TAG_WITH_REF_AND_SHA_SHORT}"
-    - name: Clean-up
-      run: docker logout
-      if: always()
-  build-v1-19-3-envsubst-git-jq-kustomize-ssh-alpine-3-8:
-    runs-on: ubuntu-18.04
-    env:
-      VARIANT_TAG: v1.19.3-envsubst-git-jq-kustomize-ssh-alpine-3.8
-      # VARIANT_TAG_WITH_REF: v1.19.3-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
-      VARIANT_BUILD_DIR: variants/v1.19.3-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      VARIANT_TAG: v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
+      # VARIANT_TAG_WITH_REF: v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8-${GITHUB_REF}
+      VARIANT_BUILD_DIR: variants/v1.14.10-envsubst-git-jq-kustomize-ssh-alpine-3.8
     steps:
     - uses: actions/checkout@v1
     - name: Display system info (linux)
