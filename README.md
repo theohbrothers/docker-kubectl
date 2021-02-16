@@ -4,7 +4,7 @@
 [![docker-image-size](https://img.shields.io/microbadger/image-size/theohbrothers/docker-kubectl/latest)](https://hub.docker.com/r/theohbrothers/docker-kubectl)
 [![docker-image-layers](https://img.shields.io/microbadger/layers/theohbrothers/docker-kubectl/latest)](https://hub.docker.com/r/theohbrothers/docker-kubectl)
 
-Dockerized `kubectl` alpine image with useful tools.
+Dockerized `kubectl` with useful tools.
 
 ## Tags
 
