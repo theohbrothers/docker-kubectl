@@ -2976,3 +2976,65 @@ jobs:
     - name: Clean-up
       run: docker logout
       if: always()
+  converge-master-and-release-branches:
+    needs: [build-v1-21-0-beta-0-alpine-3-8, build-v1-21-0-beta-0-envsubst-alpine-3-8, build-v1-21-0-beta-0-git-alpine-3-8, build-v1-21-0-beta-0-jq-alpine-3-8, build-v1-21-0-beta-0-kustomize-alpine-3-8, build-v1-21-0-beta-0-ssh-alpine-3-8, build-v1-21-0-beta-0-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-20-4-alpine-3-8, build-v1-20-4-envsubst-alpine-3-8, build-v1-20-4-git-alpine-3-8, build-v1-20-4-jq-alpine-3-8, build-v1-20-4-kustomize-alpine-3-8, build-v1-20-4-ssh-alpine-3-8, build-v1-20-4-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-19-7-alpine-3-8, build-v1-19-7-envsubst-alpine-3-8, build-v1-19-7-git-alpine-3-8, build-v1-19-7-jq-alpine-3-8, build-v1-19-7-kustomize-alpine-3-8, build-v1-19-7-ssh-alpine-3-8, build-v1-19-7-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-18-15-alpine-3-8, build-v1-18-15-envsubst-alpine-3-8, build-v1-18-15-git-alpine-3-8, build-v1-18-15-jq-alpine-3-8, build-v1-18-15-kustomize-alpine-3-8, build-v1-18-15-ssh-alpine-3-8, build-v1-18-15-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-17-17-alpine-3-8, build-v1-17-17-envsubst-alpine-3-8, build-v1-17-17-git-alpine-3-8, build-v1-17-17-jq-alpine-3-8, build-v1-17-17-kustomize-alpine-3-8, build-v1-17-17-ssh-alpine-3-8, build-v1-17-17-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-16-15-alpine-3-8, build-v1-16-15-envsubst-alpine-3-8, build-v1-16-15-git-alpine-3-8, build-v1-16-15-jq-alpine-3-8, build-v1-16-15-kustomize-alpine-3-8, build-v1-16-15-ssh-alpine-3-8, build-v1-16-15-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-15-12-alpine-3-8, build-v1-15-12-envsubst-alpine-3-8, build-v1-15-12-git-alpine-3-8, build-v1-15-12-jq-alpine-3-8, build-v1-15-12-kustomize-alpine-3-8, build-v1-15-12-ssh-alpine-3-8, build-v1-15-12-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-14-10-alpine-3-8, build-v1-14-10-envsubst-alpine-3-8, build-v1-14-10-git-alpine-3-8, build-v1-14-10-jq-alpine-3-8, build-v1-14-10-kustomize-alpine-3-8, build-v1-14-10-ssh-alpine-3-8, build-v1-14-10-envsubst-git-jq-kustomize-ssh-alpine-3-8]
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Merge release into master (fast-forward)
+        run: |
+          git checkout master
+          git merge release
+          git push origin master
+  resolve-release-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      TAG: ${{ steps.resolve-release-tag.outputs.TAG }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Resolve release tag
+        id: resolve-release-tag
+        run: |
+          set +e
+          # E.g. 20210402
+          TODAYS_DATE=$( date -u '+%Y%m%d' )
+          # Is this the first tag for this date?
+          TODAYS_DATE_TAGS=$( git tag --list | grep "^$TODAYS_DATE" )
+          TAG=
+          if [ -z "$TODAYS_DATE_TAGS" ]; then
+              # E.g. 20210402.0.0
+              TAG="$TODAYS_DATE.0.0" # Send this to stdout
+          else
+              # E.g. if there are 20210402.0.0, 20210402.0.1, 20210402.0.2, this returns 2
+              VERSION_MINOR_LATEST=$( echo "$TODAYS_DATE_TAGS" | cut -d '.' -f 3 | sort -nr | head -n1 )
+              # Minor version
+              VERSION_MINOR=$( expr "$VERSION_MINOR_LATEST" + 1 )
+              # E.g. 20210402.0.3
+              TAG="$TODAYS_DATE.0.$VERSION_MINOR"  # Send this to stdout
+          fi
+          echo "TODAYS_DATE: $TODAYS_DATE"
+          echo "TODAYS_DATE_TAGS: $TODAYS_DATE_TAGS"
+          echo "TAG: $TAG"
+          echo "::set-output name=TAG::$TAG"
+      - name: Print outputs
+        run: echo ${{ steps.resolve-release-tag.outputs.TAG }}
+  publish-draft-release:
+    needs: [build-v1-21-0-beta-0-alpine-3-8, build-v1-21-0-beta-0-envsubst-alpine-3-8, build-v1-21-0-beta-0-git-alpine-3-8, build-v1-21-0-beta-0-jq-alpine-3-8, build-v1-21-0-beta-0-kustomize-alpine-3-8, build-v1-21-0-beta-0-ssh-alpine-3-8, build-v1-21-0-beta-0-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-20-4-alpine-3-8, build-v1-20-4-envsubst-alpine-3-8, build-v1-20-4-git-alpine-3-8, build-v1-20-4-jq-alpine-3-8, build-v1-20-4-kustomize-alpine-3-8, build-v1-20-4-ssh-alpine-3-8, build-v1-20-4-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-19-7-alpine-3-8, build-v1-19-7-envsubst-alpine-3-8, build-v1-19-7-git-alpine-3-8, build-v1-19-7-jq-alpine-3-8, build-v1-19-7-kustomize-alpine-3-8, build-v1-19-7-ssh-alpine-3-8, build-v1-19-7-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-18-15-alpine-3-8, build-v1-18-15-envsubst-alpine-3-8, build-v1-18-15-git-alpine-3-8, build-v1-18-15-jq-alpine-3-8, build-v1-18-15-kustomize-alpine-3-8, build-v1-18-15-ssh-alpine-3-8, build-v1-18-15-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-17-17-alpine-3-8, build-v1-17-17-envsubst-alpine-3-8, build-v1-17-17-git-alpine-3-8, build-v1-17-17-jq-alpine-3-8, build-v1-17-17-kustomize-alpine-3-8, build-v1-17-17-ssh-alpine-3-8, build-v1-17-17-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-16-15-alpine-3-8, build-v1-16-15-envsubst-alpine-3-8, build-v1-16-15-git-alpine-3-8, build-v1-16-15-jq-alpine-3-8, build-v1-16-15-kustomize-alpine-3-8, build-v1-16-15-ssh-alpine-3-8, build-v1-16-15-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-15-12-alpine-3-8, build-v1-15-12-envsubst-alpine-3-8, build-v1-15-12-git-alpine-3-8, build-v1-15-12-jq-alpine-3-8, build-v1-15-12-kustomize-alpine-3-8, build-v1-15-12-ssh-alpine-3-8, build-v1-15-12-envsubst-git-jq-kustomize-ssh-alpine-3-8, build-v1-14-10-alpine-3-8, build-v1-14-10-envsubst-alpine-3-8, build-v1-14-10-git-alpine-3-8, build-v1-14-10-jq-alpine-3-8, build-v1-14-10-kustomize-alpine-3-8, build-v1-14-10-ssh-alpine-3-8, build-v1-14-10-envsubst-git-jq-kustomize-ssh-alpine-3-8, converge-master-and-release-branches]
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Drafts your next Release notes as Pull Requests are merged into "master"
+      - uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter.yml
+          publish: true
+          name: ${{ needs.resolve-release-tag.outputs.TAG }}
+          tag: ${{ needs.resolve-release-tag.outputs.TAG }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
