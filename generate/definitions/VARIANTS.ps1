@@ -1,5 +1,5 @@
 $local:VARIANTS_PACKAGE_VERSIONS = @(
-    'v1.21.0-beta.0'
+    'v1.21.0'
     'v1.20.4'
     'v1.19.7'
     'v1.18.15'
