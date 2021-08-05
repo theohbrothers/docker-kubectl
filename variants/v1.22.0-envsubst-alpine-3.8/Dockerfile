@@ -1,11 +1,7 @@
 FROM alpine:3.8
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
-RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
-# kubectl
 RUN apk add --no-cache curl \
-    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.19.7/bin/$TARGETPLATFORM/kubectl -o /usr/local/bin/kubectl \
+    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && apk del curl
 
@@ -27,17 +23,6 @@ RUN apk add --no-cache --virtual .gettext gettext \
     && apk add --no-cache $runDeps \
     && apk del .gettext \
     && mv /tmp/envsubst /usr/local/bin/
-
-RUN apk add --no-cache git
-
-RUN apk add --no-cache jq
-
-RUN apk add --no-cache curl \
-    && curl -L https://github.com/kubernetes-sigs/kustomize/releases/download/v2.0.3/kustomize_2.0.3_linux_amd64 -o /usr/local/bin/kustomize \
-    && chmod +x /usr/local/bin/kustomize \
-    && apk del curl
-
-RUN apk add --no-cache openssh-client
 
 
 

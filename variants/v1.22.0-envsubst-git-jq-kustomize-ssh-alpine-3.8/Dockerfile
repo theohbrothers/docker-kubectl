@@ -5,7 +5,7 @@ RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 # kubectl
 RUN apk add --no-cache curl \
-    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.19.7/bin/$TARGETPLATFORM/kubectl -o /usr/local/bin/kubectl \
+    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.22.0/bin/$TARGETPLATFORM/kubectl -o /usr/local/bin/kubectl \
     && chmod +x /usr/local/bin/kubectl \
     && apk del curl
 

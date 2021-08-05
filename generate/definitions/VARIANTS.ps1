@@ -1,4 +1,5 @@
 $local:VARIANTS_PACKAGE_VERSIONS = @(
+    'v1.22.0'
     'v1.21.0'
     'v1.20.4'
     'v1.19.7'
@@ -17,11 +18,6 @@ $local:VARIANTS_MATRIX = @(
             distro_version = '3.8'
             subvariants = @(
                 @{ components = @(); tag_as_latest = if ($v -eq ($local:VARIANTS_PACKAGE_VERSIONS | ? { $_ -match '^v\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
-                @{ components = @( 'envsubst' ) }
-                @{ components = @( 'git' ) }
-                @{ components = @( 'jq' ) }
-                @{ components = @( 'kustomize' ) }
-                @{ components = @( 'ssh' ) }
                 @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
             )
         }
