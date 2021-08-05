@@ -87,6 +87,7 @@ $( $VARIANTS | % {
 
         # For Generate-DockerImageVariants: Set step output(s)
         echo "::set-output name=CONTEXT::$VARIANT_BUILD_DIR"
+        echo "::set-output name=VARIANT_TAG::$VARIANT_TAG"
         echo "::set-output name=VARIANT_TAG_WITH_REF::$VARIANT_TAG_WITH_REF"
         echo "::set-output name=VARIANT_TAG_WITH_REF_AND_SHA_SHORT::$VARIANT_TAG_WITH_REF_AND_SHA_SHORT"
 
