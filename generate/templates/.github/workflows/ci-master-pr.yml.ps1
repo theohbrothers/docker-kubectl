@@ -140,6 +140,7 @@ $( $VARIANTS | % {
           ${{ github.repository }}:${{ steps.prep.outputs.VARIANT_TAG }}
           ${{ github.repository }}:${{ steps.prep.outputs.VARIANT_TAG_WITH_REF }}
           ${{ github.repository }}:${{ steps.prep.outputs.VARIANT_TAG_WITH_REF_AND_SHA_SHORT }}
+
 '@
 
 if ( $_['tag_as_latest'] ) {
