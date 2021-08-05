@@ -10,7 +10,14 @@ Dockerized `kubectl` with useful tools.
 
 | Tag | Dockerfile Build Context |
 |:-------:|:---------:|
-| `:v1.21.0-alpine-3.8`, `:latest` | [View](variants/v1.21.0-alpine-3.8 ) |
+| `:v1.22.0-alpine-3.8`, `:latest` | [View](variants/v1.22.0-alpine-3.8 ) |
+| `:v1.22.0-envsubst-alpine-3.8` | [View](variants/v1.22.0-envsubst-alpine-3.8 ) |
+| `:v1.22.0-git-alpine-3.8` | [View](variants/v1.22.0-git-alpine-3.8 ) |
+| `:v1.22.0-jq-alpine-3.8` | [View](variants/v1.22.0-jq-alpine-3.8 ) |
+| `:v1.22.0-kustomize-alpine-3.8` | [View](variants/v1.22.0-kustomize-alpine-3.8 ) |
+| `:v1.22.0-ssh-alpine-3.8` | [View](variants/v1.22.0-ssh-alpine-3.8 ) |
+| `:v1.22.0-envsubst-git-jq-kustomize-ssh-alpine-3.8` | [View](variants/v1.22.0-envsubst-git-jq-kustomize-ssh-alpine-3.8 ) |
+| `:v1.21.0-alpine-3.8` | [View](variants/v1.21.0-alpine-3.8 ) |
 | `:v1.21.0-envsubst-alpine-3.8` | [View](variants/v1.21.0-envsubst-alpine-3.8 ) |
 | `:v1.21.0-git-alpine-3.8` | [View](variants/v1.21.0-git-alpine-3.8 ) |
 | `:v1.21.0-jq-alpine-3.8` | [View](variants/v1.21.0-jq-alpine-3.8 ) |
