@@ -120,6 +120,6 @@ RUN apk add --no-cache --virtual .build-dependencies $PHPIZE_DEPS \
 }
 
 @"
-ENTRYPOINT [ "/usr/local/bin/kubectl" ]
+CMD [ "/usr/local/bin/kubectl" ]
 
 "@
