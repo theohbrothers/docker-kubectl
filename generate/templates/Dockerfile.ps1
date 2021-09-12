@@ -1,6 +1,16 @@
 @"
-$(
-($VARIANT['_metadata']['components'] | % {
+FROM $( $VARIANT['_metadata']['distro'] ):$( $VARIANT['_metadata']['distro_version'] )
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "I am running on `$BUILDPLATFORM, building for `$TARGETPLATFORM"
+
+# When `$TARGETPLATFORM is linux/arm/v7, strip out the '/v7' from it
+RUN wget -qO- https://storage.googleapis.com/kubernetes-release/release/$( $VARIANT['_metadata']['package_version'] )/bin/`$( echo `$TARGETPLATFORM | sed 's@/v7$@@' )/kubectl > /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+
+
+"@
+
+$VARIANT['_metadata']['components'] | % {
     $component = $_
 
     switch( $component ) {
@@ -57,6 +67,18 @@ RUN apk add --no-cache curl \
 "@
         }
 
+        'sops' {
+
+            @"
+# Note: `sops` does not provide binaries for other arch other than `linux/i386` and `linux/amd64`. So `sops` might not work on other architectures.
+RUN wget -qO- https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops && chmod +x /usr/local/bin/sops
+
+RUN apk add --no-cache gnupg
+
+
+"@
+        }
+
         'ssh' {
             @'
 RUN apk add --no-cache openssh-client
@@ -95,6 +117,9 @@ RUN apk add --no-cache --virtual .build-dependencies $PHPIZE_DEPS \
             throw "No such component: $component"
         }
     }
-}) -join ''
-)
+}
+
+@"
+CMD [ "/usr/local/bin/kubectl" ]
+
 "@

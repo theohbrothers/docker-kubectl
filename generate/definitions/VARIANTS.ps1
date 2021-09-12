@@ -18,7 +18,7 @@ $local:VARIANTS_MATRIX = @(
             distro_version = '3.8'
             subvariants = @(
                 @{ components = @(); tag_as_latest = if ($v -eq ($local:VARIANTS_PACKAGE_VERSIONS | ? { $_ -match '^v\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
-                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'ssh' ) }
+                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh' ) }
             )
         }
     }
@@ -57,8 +57,8 @@ $VARIANTS_SHARED = @{
         templates = @{
             'Dockerfile' = @{
                 common = $true
-                includeHeader = $true
-                includeFooter = $true
+                includeHeader = $false
+                includeFooter = $false
                 passes = @(
                     @{
                         variables = @{}
@@ -68,6 +68,3 @@ $VARIANTS_SHARED = @{
         }
     }
 }
-
-# Send definitions down the pipeline
-$VARIANTS
