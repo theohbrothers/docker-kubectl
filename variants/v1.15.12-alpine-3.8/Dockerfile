@@ -3,10 +3,7 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
-# kubectl
-RUN apk add --no-cache curl \
-    && curl -L https://storage.googleapis.com/kubernetes-release/release/v1.15.12/bin/$TARGETPLATFORM/kubectl -o /usr/local/bin/kubectl \
-    && chmod +x /usr/local/bin/kubectl \
-    && apk del curl
+# When $TARGETPLATFORM is linux/arm/v7, strip out the '/v7' from it
+RUN wget -qO- https://storage.googleapis.com/kubernetes-release/release/v1.15.12/bin/$( echo $TARGETPLATFORM | sed 's@/v7$@@' )/kubectl > /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]
