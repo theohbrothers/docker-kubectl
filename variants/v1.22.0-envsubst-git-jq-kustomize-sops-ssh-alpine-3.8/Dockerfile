@@ -41,4 +41,4 @@ RUN apk add --no-cache gnupg
 
 RUN apk add --no-cache openssh-client
 
-ENTRYPOINT [ "/usr/local/bin/kubectl" ]
+CMD [ "/usr/local/bin/kubectl" ]
