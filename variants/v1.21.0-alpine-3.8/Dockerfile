@@ -9,6 +9,4 @@ RUN apk add --no-cache curl \
     && chmod +x /usr/local/bin/kubectl \
     && apk del curl
 
-
-
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]
