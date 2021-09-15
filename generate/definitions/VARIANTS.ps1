@@ -32,6 +32,7 @@ $VARIANTS = @(
                     package_version = $variant['package_version']
                     distro = $variant['distro']
                     distro_version = $variant['distro_version']
+                    platforms =  'linux/386,linux/amd64,linux/arm,linux/arm64,linux/s390x'
                     components = $subVariant['components']
                 }
                 # Docker image tag. E.g. 'v2.3.0.0-alpine-3.6'
