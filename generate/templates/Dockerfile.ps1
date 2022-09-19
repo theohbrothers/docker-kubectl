@@ -4,6 +4,9 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on `$BUILDPLATFORM, building for `$TARGETPLATFORM"
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 # When `$TARGETPLATFORM is linux/arm/v7, strip out the '/v6' or '/v7' from it
 RUN BIN_URL=https://storage.googleapis.com/kubernetes-release/release/$( $VARIANT['_metadata']['package_version'] )/bin/`$( echo `$TARGETPLATFORM | sed 's@/v[67]$@@' )/kubectl \
     && SHA512=`$( wget -qO- "`$BIN_URL.sha512" ) \
@@ -125,6 +128,6 @@ RUN apk add --no-cache --virtual .build-dependencies $PHPIZE_DEPS \
 }
 
 @"
-CMD [ "/usr/local/bin/kubectl" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 "@
