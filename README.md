@@ -35,3 +35,16 @@ Dockerized `kubectl` with useful tools.
 | `:v1.14.10-alpine-3.8` | [View](variants/v1.14.10-alpine-3.8 ) |
 | `:v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
 
+## Development
+
+Requires Windows `powershell` or [`pwsh`](https://github.com/PowerShell/PowerShell).
+
+```powershell
+# Install Generate-DockerImageVariants module: https://github.com/theohbrothers/Generate-DockerImageVariants
+Install-Module -Name Generate-DockerImageVariants -Repository PSGallery -Scope CurrentUser -Force -Verbose
+
+# Edit ./generate templates
+
+# Generate the variants
+Generate-DockerImageVariants .
+```
