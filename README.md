@@ -10,32 +10,32 @@ Dockerized `kubectl` with useful tools.
 
 | Tag | Dockerfile Build Context |
 |:-------:|:---------:|
-| `:v1.26.0-alpine-3.8`, `:latest` | [View](variants/v1.26.0-alpine-3.8 ) |
-| `:v1.26.0-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.26.0-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.25.5-alpine-3.8` | [View](variants/v1.25.5-alpine-3.8 ) |
-| `:v1.25.5-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.25.5-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.24.9-alpine-3.8` | [View](variants/v1.24.9-alpine-3.8 ) |
-| `:v1.24.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.24.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.23.15-alpine-3.8` | [View](variants/v1.23.15-alpine-3.8 ) |
-| `:v1.23.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.23.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.22.17-alpine-3.8` | [View](variants/v1.22.17-alpine-3.8 ) |
-| `:v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.21.14-alpine-3.8` | [View](variants/v1.21.14-alpine-3.8 ) |
-| `:v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.20.15-alpine-3.8` | [View](variants/v1.20.15-alpine-3.8 ) |
-| `:v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.19.16-alpine-3.8` | [View](variants/v1.19.16-alpine-3.8 ) |
-| `:v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.18.20-alpine-3.8` | [View](variants/v1.18.20-alpine-3.8 ) |
-| `:v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.17.17-alpine-3.8` | [View](variants/v1.17.17-alpine-3.8 ) |
-| `:v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.16.15-alpine-3.8` | [View](variants/v1.16.15-alpine-3.8 ) |
-| `:v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.15.12-alpine-3.8` | [View](variants/v1.15.12-alpine-3.8 ) |
-| `:v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
-| `:v1.14.10-alpine-3.8` | [View](variants/v1.14.10-alpine-3.8 ) |
-| `:v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8 ) |
+| `:v1.26.0-alpine-3.8`, `:latest` | [View](variants/v1.26.0-alpine-3.8) |
+| `:v1.26.0-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.26.0-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.25.5-alpine-3.8` | [View](variants/v1.25.5-alpine-3.8) |
+| `:v1.25.5-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.25.5-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.24.9-alpine-3.8` | [View](variants/v1.24.9-alpine-3.8) |
+| `:v1.24.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.24.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.23.15-alpine-3.8` | [View](variants/v1.23.15-alpine-3.8) |
+| `:v1.23.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.23.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.22.17-alpine-3.8` | [View](variants/v1.22.17-alpine-3.8) |
+| `:v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.21.14-alpine-3.8` | [View](variants/v1.21.14-alpine-3.8) |
+| `:v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.20.15-alpine-3.8` | [View](variants/v1.20.15-alpine-3.8) |
+| `:v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.19.16-alpine-3.8` | [View](variants/v1.19.16-alpine-3.8) |
+| `:v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.18.20-alpine-3.8` | [View](variants/v1.18.20-alpine-3.8) |
+| `:v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.17.17-alpine-3.8` | [View](variants/v1.17.17-alpine-3.8) |
+| `:v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.16.15-alpine-3.8` | [View](variants/v1.16.15-alpine-3.8) |
+| `:v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.15.12-alpine-3.8` | [View](variants/v1.15.12-alpine-3.8) |
+| `:v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
+| `:v1.14.10-alpine-3.8` | [View](variants/v1.14.10-alpine-3.8) |
+| `:v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8` | [View](variants/v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.8) |
 
 ## Development
 
