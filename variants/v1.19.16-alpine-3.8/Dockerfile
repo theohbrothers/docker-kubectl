@@ -3,9 +3,6 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
 RUN apk add --no-cache ca-certificates
 
 # When $TARGETPLATFORM is linux/arm/v7, strip out the '/v6' or '/v7' from it
@@ -15,5 +12,8 @@ RUN BIN_URL=https://storage.googleapis.com/kubernetes-release/release/v1.19.16/b
     && chmod +x /usr/local/bin/kubectl \
     && sha512sum /usr/local/bin/kubectl | grep "^$SHA512 " \
     && kubectl version --client
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
