@@ -3,9 +3,6 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
 RUN apk add --no-cache ca-certificates
 
 # When $TARGETPLATFORM is linux/arm/v7, strip out the '/v6' or '/v7' from it
@@ -53,5 +50,8 @@ RUN set -eux; \
 RUN apk add --no-cache gnupg
 
 RUN apk add --no-cache openssh-client
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
