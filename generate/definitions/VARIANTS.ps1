@@ -1,28 +1,14 @@
-$local:VARIANTS_PACKAGE_VERSIONS = @(
-    'v1.27.3'
-    'v1.26.6'
-    'v1.25.11'
-    'v1.24.15'
-    'v1.23.17'
-    'v1.22.17'
-    'v1.21.14'
-    'v1.20.15'
-    'v1.19.16'
-    'v1.18.20'
-    'v1.17.17'
-    'v1.16.15'
-    'v1.15.12'
-    'v1.14.10'
-)
+$local:VERSIONS = Get-Content $PSScriptRoot/versions.json -Encoding utf8 | ConvertFrom-Json -Depth 100
+
 # Docker image variants' definitions
 $local:VARIANTS_MATRIX = @(
-    foreach ($v in $local:VARIANTS_PACKAGE_VERSIONS) {
+    foreach ($v in $local:VERSIONS) {
         @{
-            package_version = $v
+            package_version = "v$v"
             distro = 'alpine'
             distro_version = '3.8'
             subvariants = @(
-                @{ components = @(); tag_as_latest = if ($v -eq ($local:VARIANTS_PACKAGE_VERSIONS | ? { $_ -match '^v\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
+                @{ components = @(); tag_as_latest = if ($v -eq ($local:VERSIONS | ? { $_ -match '^\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
                 @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh' ) }
             )
         }
