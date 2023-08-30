@@ -1,7 +1,12 @@
-# This script is to bump versions and create PR(s) for each bumped version
+# This script is to update versions in version.json, and create PR(s) for each bumped version
 # It may be run manually or as a cron
+[CmdletBinding()]
 param (
+    [Parameter(HelpMessage="Whether to perform a dry run (skip writing versions.json)")]
     [switch]$DryRun
+,
+    [Parameter(HelpMessage="Whether to open a PR for each updated version in version.json")]
+    [switch]$PR
 )
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
@@ -47,7 +52,7 @@ function Create-PR () {
     }
     $COMMIT_MSG = = if ($verb -eq 'add') {
         @"
-Enhancement: Add v$( $vn.Major ).$( $vn.Minor ).$( $vn.Build) variants to $( $vn )
+Enhancement: Add v$( $vn.Major ).$( $vn.Minor ).$( $vn.Build ) variants
 
 Signed-off-by: $( git config --global user.name ) <$( git config --global --get user.email )>
 "@
@@ -81,7 +86,7 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( git remote get-url origin )"
 }
 
-function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun) {
+function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun, $PR) {
     for ($i = 0; $i -lt $VERSIONS.Length; $i++) {
         $v = [version]$VERSIONS[$i]
         foreach ($vn in $VERSIONS_NEW) {
@@ -91,27 +96,33 @@ function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun) {
                 if (!$DryRun) {
                     $VERSIONS_CLONE = @( $vn.ToString() ) + $VERSIONS.Clone()
                     $VERSIONS_CLONE | Sort-Object { [version]$_ } -Descending | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
-                    Create-PR $v $vn 'add'
+                    if ($PR) {
+                        Create-PR $v $vn 'add'
+                    }
                 }
             }elseif ($i -eq 0 -and $v.Major -eq $vn.Major -and $v.Minor -lt $vn.Minor) {
                 "Adding new minor version: $vn" | Write-Host -ForegroundColor Green
                 if (!$DryRun) {
                     $VERSIONS_CLONE = @( $vn.ToString() ) + $VERSIONS.Clone()
                     $VERSIONS_CLONE | Sort-Object { [version]$_ } -Descending | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
-                    Create-PR $v $vn 'add'
+                    if ($PR) {
+                        Create-PR $v $vn 'add'
+                    }
                 }
             }elseif ($v.Major -eq $vn.Major -and $v.Minor -eq $vn.Minor -and $v.Build -lt $vn.Build) {
-                "Updating patch version $v to $vn" | Write-Host -ForegroundColor Green
+                "Updating patch version: $v to $vn" | Write-Host -ForegroundColor Green
                 if (!$DryRun) {
                     $VERSIONS_CLONE = $VERSIONS.Clone()
                     $VERSIONS_CLONE[$i] = $vn.ToString()
                     $VERSIONS_CLONE | Sort-Object { [version]$_ } -Descending | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
-                    Create-PR $v $vn 'update'
+                    if ($PR) {
+                        Create-PR $v $vn 'update'
+                    }
                 }
             }
         }
     }
 }
 
-Update-Versions $VERSIONS $VERSIONS_NEW $DryRun
-Update-Versions $VERSIONS $VERSIONS_EOL $DryRun
+Update-Versions $VERSIONS $VERSIONS_NEW $DryRun $PR
+Update-Versions $VERSIONS $VERSIONS_EOL $DryRun $PR
