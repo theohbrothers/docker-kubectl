@@ -1,5 +1,8 @@
 # This script is to bump versions and create PR(s) for each bumped version
 # It may be run manually or as a cron
+param (
+    [switch]$DryRun
+)
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
@@ -59,21 +62,23 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( git remote get-url origin )"
 }
 
-function Update-Versions ($VERSIONS, $VERSIONS_NEW) {
+function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun) {
     for ($i = 0; $i -lt $VERSIONS.Length; $i++) {
         $v = [version]$VERSIONS[$i]
         foreach ($vn in $VERSIONS_NEW) {
             $vn = [version]$vn
             if ($v.Major -eq $vn.Major -and $v.Minor -eq $vn.Minor -and $v.Build -lt $vn.Build) {
                 "Updating $v to $vn" | Write-Host -ForegroundColor Green
-                $VERSIONS_CLONE = $VERSIONS.Clone()
-                $VERSIONS_CLONE[$i] = $vn.ToString()
-                $VERSIONS_CLONE | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
-                Create-PR
+                if (!$DryRun) {
+                    $VERSIONS_CLONE = $VERSIONS.Clone()
+                    $VERSIONS_CLONE[$i] = $vn.ToString()
+                    $VERSIONS_CLONE | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
+                    Create-PR
+                }
             }
         }
     }
 }
 
-Update-Versions $VERSIONS $VERSIONS_EOL
-Update-Versions $VERSIONS $VERSIONS_NEW
+Update-Versions $VERSIONS $VERSIONS_EOL $DryRun
+Update-Versions $VERSIONS $VERSIONS_NEW $DryRun
