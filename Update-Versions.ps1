@@ -66,7 +66,7 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     git checkout -b $BRANCH
     git add .
     git commit -m $COMMIT_MSG
-    git push origin $BRANCH
+    git push origin $BRANCH -f
 
     "Creating PR" | Write-Host -ForegroundColor Green
     $env:GITHUB_TOKEN = if ($env:GITHUB_TOKEN) { $env:GITHUB_TOKEN } else { (Get-Content ~/.git-credentials -Encoding utf8 -Force) -split "`n" | % { if ($_ -match '^https://[^:]+:([^:]+)@github.com') { $matches[1] } } | Select-Object -First 1 }
