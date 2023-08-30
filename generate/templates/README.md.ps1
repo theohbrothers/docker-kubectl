@@ -44,4 +44,20 @@ Install-Module -Name Generate-DockerImageVariants -Repository PSGallery -Scope C
 Generate-DockerImageVariants .
 ```
 
+### Variant versions
+
+[versions.json](generate/definitions/versions.json) contains a list of [Semver](https://semver.org/) versions, one per line.
+
+To list available version updates in `versions.json`:
+
+```powershell
+./Update-Versions.ps1 -DryRun
+```
+
+To update versions in `versions.json`, and create PRs for each updated version:
+
+```powershell
+./Update-Versions.ps1
+```
+
 '@
