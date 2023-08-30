@@ -6,7 +6,7 @@ $local:VARIANTS_MATRIX = @(
         @{
             package_version = "v$v"
             distro = 'alpine'
-            distro_version = '3.8'
+            distro_version = '3.15'
             subvariants = @(
                 @{ components = @(); tag_as_latest = if ($v -eq ($local:VERSIONS | ? { $_ -match '^\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
                 @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh' ) }
