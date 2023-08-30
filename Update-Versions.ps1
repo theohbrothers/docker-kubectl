@@ -50,7 +50,7 @@ function Create-PR () {
     }elseif ($verb -eq 'update') {
         "enhancement/bump-v$( $v.Major ).$( $v.Minor )-variants-to-$( $vn )"
     }
-    $COMMIT_MSG = = if ($verb -eq 'add') {
+    $COMMIT_MSG = if ($verb -eq 'add') {
         @"
 Enhancement: Add v$( $vn.Major ).$( $vn.Minor ).$( $vn.Build ) variants
 
