@@ -24,7 +24,7 @@ $VERSIONS_EOL = @( $y.branches | % { $_.finalPatchRelease } )
 $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/schedule.yaml).Content | ConvertFrom-Yaml
 $VERSIONS_NEW = @( $y.schedules | % { $_.previousPatches[0].release } )
 
-function Create-PR {
+function Create-PR ($v, $vn) {
     if (!(git config --global --get user.name)) {
         git config --global user.name "The Oh Brothers Bot"
     }
@@ -73,7 +73,7 @@ function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun) {
                     $VERSIONS_CLONE = $VERSIONS.Clone()
                     $VERSIONS_CLONE[$i] = $vn.ToString()
                     $VERSIONS_CLONE | ConvertTo-Json -Depth 100 | Set-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8
-                    Create-PR
+                    Create-PR $v $vn
                 }
             }
         }
