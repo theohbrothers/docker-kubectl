@@ -4,7 +4,7 @@ on:
     # Run daily
     - cron: '0 0 * * *'
 jobs:
-  update-versions:
+  update-versions-with-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -19,6 +19,6 @@ jobs:
         token: ${{ secrets.WORKFLOW_TOKEN }}  # This configures the git repo to use this token
     - shell: pwsh
       run: |
-        ./Update-Versions.ps1
+        ./Update-Versions.ps1 -PR
       env:
         GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

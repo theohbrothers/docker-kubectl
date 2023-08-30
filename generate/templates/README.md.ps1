@@ -54,10 +54,16 @@ To list available version updates in `versions.json`:
 ./Update-Versions.ps1 -DryRun
 ```
 
-To update versions in `versions.json`, and create PRs for each updated version:
+To update versions in `versions.json`:
 
 ```powershell
 ./Update-Versions.ps1
+```
+
+To update versions in `versions.json`, and open a PR for each updated version:
+
+```powershell
+./Update-Versions.ps1 -PR
 ```
 
 '@
