@@ -43,7 +43,6 @@ function Create-PR () {
     if (!(git config --global --get user.email)) {
         git config --global user.email "bot@theohbrothers.com"
     }
-    git checkout master
     Generate-DockerImageVariants .
     $BRANCH = if ($verb -eq 'add') {
         "enhancement/add-v$( $vn.Major ).$( $vn.Minor ).$( $vn.Build )-variants"
@@ -87,6 +86,8 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     }
     Update-GitHubIssue -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Issue $pr.number -Label enhancement -MilestoneNumber $milestone.number
     # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( git remote get-url origin )"
+
+    git checkout master
 }
 
 function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun, $PR) {
