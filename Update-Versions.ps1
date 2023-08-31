@@ -74,7 +74,7 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     $milestoneTitle = 'next-release'
     Set-GitHubConfiguration -DisableTelemetry
     Set-GitHubConfiguration -DisableUpdateCheck
-    if (!(Get-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN | ? { $_.title -eq $milestoneTitle })) {
+    if (!($milestone = Get-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN | ? { $_.title -eq $milestoneTitle })) {
         $milestone = New-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Title $milestoneTitle -State open
     }
     # if (!(gh milestone list --state open --query $MILESTONE --json title --jq '.[] | .title')) {
