@@ -76,7 +76,7 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     Set-GitHubConfiguration -DisableTelemetry
     Set-GitHubConfiguration -DisableUpdateCheck
     if (!(Get-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN | ? { $_.title -eq $milestoneTitle })) {
-        New-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Title $milestoneTitle -State open
+        $milestone = New-GitHubMilestone -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Title $milestoneTitle -State open
     }
     # if (!(gh milestone list --state open --query $MILESTONE --json title --jq '.[] | .title')) {
     #     gh milestone create --title $MILESTONE
@@ -85,7 +85,7 @@ Signed-off-by: $( git config --global user.name ) <$( git config --global --get 
     if (!$pr) {
         $pr = New-GitHubPullRequest -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Base master -Head $BRANCH -Title "$( git log --format="%s" )" -Body "$( git log --format="%b" )"
     }
-    Update-GitHubIssue -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Issue $pr.number -Label enhancement
+    Update-GitHubIssue -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Issue $pr.number -Label enhancement -MilestoneNumber $milestone.number
     # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( git remote get-url origin )"
 }
 
