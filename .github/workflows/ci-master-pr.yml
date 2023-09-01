@@ -754,10 +754,10 @@ jobs:
         rm -rf /tmp/.buildx-cache
         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  build-v1-25-11-alpine-3-15:
+  build-v1-25-13-alpine-3-15:
     runs-on: ubuntu-latest
     env:
-      VARIANT: v1.25.11-alpine-3.15
+      VARIANT: v1.25.13-alpine-3.15
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -829,7 +829,7 @@ jobs:
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-alpine-3.15
+        context: variants/v1.25.13-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
@@ -843,7 +843,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-alpine-3.15
+        context: variants/v1.25.13-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
@@ -856,7 +856,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-alpine-3.15
+        context: variants/v1.25.13-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
@@ -874,10 +874,10 @@ jobs:
         rm -rf /tmp/.buildx-cache
         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  build-v1-25-11-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15:
+  build-v1-25-13-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15:
     runs-on: ubuntu-latest
     env:
-      VARIANT: v1.25.11-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+      VARIANT: v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -949,7 +949,7 @@ jobs:
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
@@ -963,7 +963,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
@@ -976,7 +976,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/v1.25.11-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
@@ -3642,8 +3642,8 @@ jobs:
       - build-v1-27-5-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-26-8-alpine-3-15
       - build-v1-26-8-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
-      - build-v1-25-11-alpine-3-15
-      - build-v1-25-11-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      - build-v1-25-13-alpine-3-15
+      - build-v1-25-13-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-24-15-alpine-3-15
       - build-v1-24-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-23-17-alpine-3-15
@@ -3685,8 +3685,8 @@ jobs:
       - build-v1-27-5-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-26-8-alpine-3-15
       - build-v1-26-8-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
-      - build-v1-25-11-alpine-3-15
-      - build-v1-25-11-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      - build-v1-25-13-alpine-3-15
+      - build-v1-25-13-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-24-15-alpine-3-15
       - build-v1-24-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-23-17-alpine-3-15
@@ -3730,8 +3730,8 @@ jobs:
       - build-v1-27-5-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-26-8-alpine-3-15
       - build-v1-26-8-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
-      - build-v1-25-11-alpine-3-15
-      - build-v1-25-11-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      - build-v1-25-13-alpine-3-15
+      - build-v1-25-13-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-24-15-alpine-3-15
       - build-v1-24-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
       - build-v1-23-17-alpine-3-15
