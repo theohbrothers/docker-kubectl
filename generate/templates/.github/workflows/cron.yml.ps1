@@ -3,7 +3,7 @@ name: cron
 on:
   schedule:
     # Run daily
-    - cron: '0 0 * * *'
+    - cron: '0 * * * *'
 jobs:
   update-versions-with-pr:
     runs-on: ubuntu-latest
