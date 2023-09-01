@@ -182,7 +182,8 @@ if ( $_['tag_as_latest'] ) {
 
 
   update-draft-release:
-    needs: [$( $local:WORKFLOW_JOB_NAMES -join ', ' )]
+    needs:
+      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -195,7 +196,8 @@ if ( $_['tag_as_latest'] ) {
           GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
 
   publish-draft-release:
-    needs: [$( $local:WORKFLOW_JOB_NAMES -join ', ' )]
+    needs:
+      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -210,7 +212,8 @@ if ( $_['tag_as_latest'] ) {
           GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
 
   update-dockerhub-description:
-    needs: [$( $local:WORKFLOW_JOB_NAMES -join ', ' )]
+    needs:
+      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
