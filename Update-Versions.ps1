@@ -30,10 +30,14 @@ $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/mai
 $VERSIONS_NEW = @( $y.schedules | % { $_.previousPatches[0].release } )
 
 function Execute-Command {
-    & $Args[0] $Args[1..($Args.Length - 1)]
+    [CmdletBinding()]
+    param (
+        [string]$Command
+    )
+    Invoke-Expression $Command
     # Honor -ErrorAction Stop to throw terminating error for non-zero exit code
-    if ($ErrorActionPreference = 'Stop' -and $LASTEXITCODE) {
-        throw
+    if ($ErrorActionPreference -eq 'Stop' -and $LASTEXITCODE) {
+        throw "Command exit code was $LASTEXITCODE. Command: $Command"
     }
 }
 
@@ -45,11 +49,12 @@ function Create-PR () {
         [ValidateSet('add', 'update')]
         [string]$verb
     )
-    if (!(Execute-Command git config --global --get user.name)) {
-        Execute-Command git config --global user.name "The Oh Brothers Bot"
+    Execute-Command "git config --global --add safe.directory $PWD"
+    if (!(Execute-Command "git config --global user.name" -ErrorAction SilentlyContinue)) {
+        Execute-Command "git config --global user.name `"The Oh Brothers Bot`""
     }
-    if (!(Execute-Command git config --global --get user.email)) {
-        Execute-Command git config --global user.email "bot@theohbrothers.com"
+    if (!(Execute-Command "git config --global user.email" -ErrorAction SilentlyContinue)) {
+        Execute-Command "git config --global user.email `"bot@theohbrothers.com`""
     }
     Generate-DockerImageVariants .
     $BRANCH = if ($verb -eq 'add') {
@@ -61,24 +66,24 @@ function Create-PR () {
         @"
 Enhancement: Add v$( $vn.Major ).$( $vn.Minor ).$( $vn.Build ) variants
 
-Signed-off-by: $( Execute-Command git config --global user.name ) <$( Execute-Command git config --global --get user.email )>
+Signed-off-by: $( Execute-Command "git config --global user.name" ) <$( Execute-Command "git config --global user.email" )>
 "@
     }elseif ($verb -eq 'update') {
         @"
 Enhancement: Bump v$( $v.Major ).$( $v.Minor ) variants to $( $vn )
 
-Signed-off-by: $( Execute-Command git config --global user.name ) <$( Execute-Command git config --global --get user.email )>
+Signed-off-by: $( Execute-Command "git config --global user.name" ) <$( Execute-Command "git config --global user.email" )>
 "@
     }
-    Execute-Command git checkout -b $BRANCH
-    Execute-Command git add .
-    Execute-Command git commit -m $COMMIT_MSG
-    Execute-Command git push origin $BRANCH -f
+    Execute-Command "git checkout -b $BRANCH"
+    Execute-Command "git add ."
+    Execute-Command "git commit -m `"$COMMIT_MSG`""
+    Execute-Command "git push origin $BRANCH -f"
 
     "Creating PR" | Write-Host -ForegroundColor Green
     $env:GITHUB_TOKEN = if ($env:GITHUB_TOKEN) { $env:GITHUB_TOKEN } else { (Get-Content ~/.git-credentials -Encoding utf8 -Force) -split "`n" | % { if ($_ -match '^https://[^:]+:([^:]+)@github.com') { $matches[1] } } | Select-Object -First 1 }
-    $owner = (Execute-Command git remote get-url origin) -replace 'https://github.com/([^/]+)/([^/]+)', '$1'
-    $project = (Execute-Command git remote get-url origin) -replace 'https://github.com/([^/]+)/([^/]+)', '$2' -replace '\.git$', ''
+    $owner = (Execute-Command "git remote get-url origin") -replace 'https://github.com/([^/]+)/([^/]+)', '$1'
+    $project = (Execute-Command "git remote get-url origin") -replace 'https://github.com/([^/]+)/([^/]+)', '$2' -replace '\.git$', ''
     $milestoneTitle = 'next-release'
     Set-GitHubConfiguration -DisableTelemetry
     Set-GitHubConfiguration -DisableUpdateCheck
@@ -90,12 +95,12 @@ Signed-off-by: $( Execute-Command git config --global user.name ) <$( Execute-Co
     # }
     $pr = Get-GitHubPullRequest -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -State open | ? { $_.base.ref -eq 'master'  -and $_.head.ref -eq $BRANCH }
     if (!$pr) {
-        $pr = New-GitHubPullRequest -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Base master -Head $BRANCH -Title "$( Execute-Command git log --format="%s" -1 )" -Body "$( Execute-Command git log --format="%b" -1 )"
+        $pr = New-GitHubPullRequest -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Base master -Head $BRANCH -Title $( Execute-Command "git log --format=%s -1" ) -Body $( Execute-Command "git log --format=%b -1" )
     }
     Update-GitHubIssue -OwnerName $owner -RepositoryName $project -AccessToken $env:GITHUB_TOKEN -Issue $pr.number -Label enhancement -MilestoneNumber $milestone.number
-    # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( Execute-Command git remote get-url origin )"
+    # gh pr create --head $BRANCH --fill --label enhancement --milestone $milestoneTitle --repo "$( Execute-Command "git remote get-url origin" )"
 
-    Execute-Command git checkout master
+    Execute-Command "git checkout master"
 }
 
 function Update-Versions ($VERSIONS, $VERSIONS_NEW, $DryRun, $PR) {
