@@ -65,7 +65,7 @@ To update versions in `versions.json`:
 ./Update-Versions.ps1
 ```
 
-To update versions in `versions.json`, and open a PR for each changed version, and merge successful PRs one after another (to prevent merge conflicts), and finally create a tagged release and closing milestone:
+To update versions in `versions.json`, and open a PR for each changed version, and merge successful PRs one after another (to prevent merge conflicts), and finally create a tagged release and close milestone:
 
 ```powershell
 $env:GITHUB_TOKEN = 'xxx'
@@ -73,4 +73,3 @@ $env:GITHUB_TOKEN = 'xxx'
 ```
 
 To perform a dry run, use `-WhatIf`.
-
