@@ -183,37 +183,37 @@ if ( $_['tag_as_latest'] ) {
 
   update-draft-release:
     needs:
-      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
+    - $( $local:WORKFLOW_JOB_NAMES -join "`n    - " )
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          publish: false
-        env:
-          GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
+    # Drafts your next Release notes as Pull Requests are merged into "master"
+    - uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        publish: false
+      env:
+        GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
 
   publish-draft-release:
     needs:
-      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
+    - $( $local:WORKFLOW_JOB_NAMES -join "`n    - " )
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          publish: true
-          name: `${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
-          tag: `${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
-        env:
-          GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
+    # Drafts your next Release notes as Pull Requests are merged into "master"
+    - uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        publish: true
+        name: `${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
+        tag: `${{ github.ref_name }} # E.g. 'master' or 'v1.2.3'
+      env:
+        GITHUB_TOKEN: `${{ secrets.GITHUB_TOKEN }}
 
   update-dockerhub-description:
     needs:
-      - $( $local:WORKFLOW_JOB_NAMES -join "`n      - " )
+    - $( $local:WORKFLOW_JOB_NAMES -join "`n    - " )
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:

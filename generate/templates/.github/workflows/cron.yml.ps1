@@ -2,8 +2,8 @@
 name: cron
 on:
   schedule:
-    # Run daily
-    - cron: '0 0 * * *'
+  # Run daily
+  - cron: '0 0 * * *'
 jobs:
   update-versions:
     runs-on: ubuntu-latest
