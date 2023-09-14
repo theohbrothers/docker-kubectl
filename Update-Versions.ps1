@@ -48,12 +48,13 @@ try {
     $versions = Get-Content $PSScriptRoot/generate/definitions/versions.json -Encoding utf8 | ConvertFrom-Json
     # Get new versions
     $versionsNew = @(
-        & {
-            $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/schedule.yaml).Content | ConvertFrom-Yaml
-            $y.schedules | % { $_.previousPatches[0].release }
-            $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/eol.yaml).Content | ConvertFrom-Yaml
-            $y.branches | % { $_.finalPatchRelease }
-        }
+        Invoke-WebRequest https://api.github.com/repos/kubernetes/kubernetes/git/refs/tags | ConvertFrom-Json | % { $_.ref -replace 'refs/tags/v', ''} | ? { $_ -match '^\d+\.\d+\.\d+$' } | Sort-Object { [version]$_ } -Descending
+        # & {
+        #     $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/schedule.yaml).Content | ConvertFrom-Yaml
+        #     $y.schedules | % { $_.next.release }
+        #     $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/eol.yaml).Content | ConvertFrom-Yaml
+        #     $y.branches | % { $_.finalPatchRelease }
+        # }
     )
     # Get changed versions
     $versionsChanged = Get-VersionsChanged -Versions $versions -VersionsNew $versionsNew -AsObject -Descending
