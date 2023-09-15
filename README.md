@@ -16,8 +16,8 @@ Dockerized `kubectl` with useful tools.
 | `:v1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
 | `:v1.26.8-alpine-3.15` | [View](variants/v1.26.8-alpine-3.15) |
 | `:v1.26.8-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.26.8-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.25.13-alpine-3.15` | [View](variants/v1.25.13-alpine-3.15) |
-| `:v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.25.13-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:v1.25.14-alpine-3.15` | [View](variants/v1.25.14-alpine-3.15) |
+| `:v1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
 | `:v1.24.17-alpine-3.15` | [View](variants/v1.24.17-alpine-3.15) |
 | `:v1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
 | `:v1.23.17-alpine-3.15` | [View](variants/v1.23.17-alpine-3.15) |
