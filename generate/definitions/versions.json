@@ -1,17 +1,23 @@
-[
-  "1.28.2",
-  "1.27.6",
-  "1.26.9",
-  "1.25.14",
-  "1.24.17",
-  "1.23.17",
-  "1.22.17",
-  "1.21.14",
-  "1.20.15",
-  "1.19.16",
-  "1.18.20",
-  "1.17.17",
-  "1.16.15",
-  "1.15.12",
-  "1.14.10"
-]
+{
+  "kubectl": {
+    "versions": [
+      "1.28.2",
+      "1.27.6",
+      "1.26.9",
+      "1.25.14",
+      "1.24.17",
+      "1.23.17",
+      "1.22.17",
+      "1.21.14",
+      "1.20.15",
+      "1.19.16",
+      "1.18.20",
+      "1.17.17",
+      "1.16.15",
+      "1.15.12",
+      "1.14.10"
+    ],
+    "versionsChangeScope": "minor",
+    "versionsNewScript": "Invoke-WebRequest https://api.github.com/repos/kubernetes/kubernetes/git/refs/tags | ConvertFrom-Json | % { $_.ref -replace 'refs/tags/v', ''} | ? { $_ -match '^\\d+\\.\\d+\\.\\d+$' } | Sort-Object { [version]$_ } -Descending     # Alternative, but not updated promptly despite release on github.com/kubernetes/kubernetes: $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/schedule.yaml).Content | ConvertFrom-Yaml; $y.schedules | % { $_.next.release }; $y = (Invoke-WebRequest https://raw.githubusercontent.com/kubernetes/website/main/data/releases/eol.yaml).Content | ConvertFrom-Yaml;Z$y.branches | % { $_.finalPatchRelease }"
+  }
+}
