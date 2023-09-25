@@ -4,7 +4,7 @@ $local:VERSIONS = @( Get-Content $PSScriptRoot/versions.json -Encoding utf8 -raw
 $local:VARIANTS_MATRIX = @(
     foreach ($v in $local:VERSIONS.kubectl.versions) {
         @{
-            package_version = "v$v"
+            package_version = $v
             distro = 'alpine'
             distro_version = '3.15'
             subvariants = @(
@@ -28,7 +28,7 @@ $VARIANTS = @(
                 }
                 # Docker image tag. E.g. 'v2.3.0.0-alpine-3.6'
                 tag = @(
-                        $variant['package_version']
+                        "v$( $variant['package_version'] )"
                         $subVariant['components'] | ? { $_ }
                         $variant['distro']
                         $variant['distro_version']
