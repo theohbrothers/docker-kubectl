@@ -79,7 +79,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-28-2-alpine-3-15
+      id: prep-1-28-2
       run: |
         set -e
 
@@ -92,7 +92,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.28.2-alpine-3.15"
+        VARIANT="1.28.2"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -102,52 +102,52 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.28.2-alpine-3.15 - Build (PRs)
+    - name: 1.28.2 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-alpine-3.15
+        context: variants/1.28.2
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.2-alpine-3.15 - Build and push (master)
+    - name: 1.28.2 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-alpine-3.15
+        context: variants/1.28.2
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.2-alpine-3.15 - Build and push (release)
+    - name: 1.28.2 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-alpine-3.15
+        context: variants/1.28.2
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2.outputs.REF_SHA_VARIANT }}
           ${{ github.repository }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -160,7 +160,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.28.2-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -170,45 +170,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.28.2-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-2-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -266,7 +266,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-27-6-alpine-3-15
+      id: prep-1-27-6
       run: |
         set -e
 
@@ -279,7 +279,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.27.6-alpine-3.15"
+        VARIANT="1.27.6"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -289,51 +289,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.27.6-alpine-3.15 - Build (PRs)
+    - name: 1.27.6 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-alpine-3.15
+        context: variants/1.27.6
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.6-alpine-3.15 - Build and push (master)
+    - name: 1.27.6 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-alpine-3.15
+        context: variants/1.27.6
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.6-alpine-3.15 - Build and push (release)
+    - name: 1.27.6 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-alpine-3.15
+        context: variants/1.27.6
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -346,7 +346,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.27.6-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -356,45 +356,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.27.6-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-6-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -452,7 +452,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-26-9-alpine-3-15
+      id: prep-1-26-9
       run: |
         set -e
 
@@ -465,7 +465,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.26.9-alpine-3.15"
+        VARIANT="1.26.9"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -475,51 +475,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.26.9-alpine-3.15 - Build (PRs)
+    - name: 1.26.9 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-alpine-3.15
+        context: variants/1.26.9
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.9-alpine-3.15 - Build and push (master)
+    - name: 1.26.9 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-alpine-3.15
+        context: variants/1.26.9
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.9-alpine-3.15 - Build and push (release)
+    - name: 1.26.9 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-alpine-3.15
+        context: variants/1.26.9
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -532,7 +532,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.26.9-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -542,45 +542,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.26.9-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-9-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -638,7 +638,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-25-14-alpine-3-15
+      id: prep-1-25-14
       run: |
         set -e
 
@@ -651,7 +651,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.25.14-alpine-3.15"
+        VARIANT="1.25.14"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -661,51 +661,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.25.14-alpine-3.15 - Build (PRs)
+    - name: 1.25.14 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-alpine-3.15
+        context: variants/1.25.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.14-alpine-3.15 - Build and push (master)
+    - name: 1.25.14 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-alpine-3.15
+        context: variants/1.25.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.14-alpine-3.15 - Build and push (release)
+    - name: 1.25.14 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-alpine-3.15
+        context: variants/1.25.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -718,7 +718,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.25.14-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -728,45 +728,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.25.14-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -824,7 +824,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-24-17-alpine-3-15
+      id: prep-1-24-17
       run: |
         set -e
 
@@ -837,7 +837,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.24.17-alpine-3.15"
+        VARIANT="1.24.17"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -847,51 +847,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.24.17-alpine-3.15 - Build (PRs)
+    - name: 1.24.17 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-alpine-3.15
+        context: variants/1.24.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-alpine-3.15 - Build and push (master)
+    - name: 1.24.17 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-alpine-3.15
+        context: variants/1.24.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-alpine-3.15 - Build and push (release)
+    - name: 1.24.17 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-alpine-3.15
+        context: variants/1.24.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -904,7 +904,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.24.17-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -914,45 +914,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1010,7 +1010,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-23-17-alpine-3-15
+      id: prep-1-23-17
       run: |
         set -e
 
@@ -1023,7 +1023,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.23.17-alpine-3.15"
+        VARIANT="1.23.17"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1033,51 +1033,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.23.17-alpine-3.15 - Build (PRs)
+    - name: 1.23.17 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-alpine-3.15
+        context: variants/1.23.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-alpine-3.15 - Build and push (master)
+    - name: 1.23.17 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-alpine-3.15
+        context: variants/1.23.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-alpine-3.15 - Build and push (release)
+    - name: 1.23.17 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-alpine-3.15
+        context: variants/1.23.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -1090,7 +1090,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.23.17-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1100,45 +1100,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1196,7 +1196,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-22-17-alpine-3-15
+      id: prep-1-22-17
       run: |
         set -e
 
@@ -1209,7 +1209,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.22.17-alpine-3.15"
+        VARIANT="1.22.17"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1219,51 +1219,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.22.17-alpine-3.15 - Build (PRs)
+    - name: 1.22.17 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-alpine-3.15
+        context: variants/1.22.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-alpine-3.15 - Build and push (master)
+    - name: 1.22.17 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-alpine-3.15
+        context: variants/1.22.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-alpine-3.15 - Build and push (release)
+    - name: 1.22.17 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-alpine-3.15
+        context: variants/1.22.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -1276,7 +1276,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.22.17-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1286,45 +1286,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1382,7 +1382,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-21-14-alpine-3-15
+      id: prep-1-21-14
       run: |
         set -e
 
@@ -1395,7 +1395,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.21.14-alpine-3.15"
+        VARIANT="1.21.14"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1405,51 +1405,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.21.14-alpine-3.15 - Build (PRs)
+    - name: 1.21.14 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-alpine-3.15
+        context: variants/1.21.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-alpine-3.15 - Build and push (master)
+    - name: 1.21.14 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-alpine-3.15
+        context: variants/1.21.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-alpine-3.15 - Build and push (release)
+    - name: 1.21.14 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-alpine-3.15
+        context: variants/1.21.14
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -1462,7 +1462,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.21.14-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1472,45 +1472,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1568,7 +1568,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-20-15-alpine-3-15
+      id: prep-1-20-15
       run: |
         set -e
 
@@ -1581,7 +1581,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.20.15-alpine-3.15"
+        VARIANT="1.20.15"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1591,51 +1591,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.20.15-alpine-3.15 - Build (PRs)
+    - name: 1.20.15 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-alpine-3.15
+        context: variants/1.20.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-alpine-3.15 - Build and push (master)
+    - name: 1.20.15 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-alpine-3.15
+        context: variants/1.20.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-alpine-3.15 - Build and push (release)
+    - name: 1.20.15 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-alpine-3.15
+        context: variants/1.20.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -1648,7 +1648,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.20.15-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1658,45 +1658,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1754,7 +1754,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-19-16-alpine-3-15
+      id: prep-1-19-16
       run: |
         set -e
 
@@ -1767,7 +1767,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.19.16-alpine-3.15"
+        VARIANT="1.19.16"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1777,51 +1777,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.19.16-alpine-3.15 - Build (PRs)
+    - name: 1.19.16 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-alpine-3.15
+        context: variants/1.19.16
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-alpine-3.15 - Build and push (master)
+    - name: 1.19.16 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-alpine-3.15
+        context: variants/1.19.16
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-alpine-3.15 - Build and push (release)
+    - name: 1.19.16 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-alpine-3.15
+        context: variants/1.19.16
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -1834,7 +1834,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.19.16-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1844,45 +1844,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1940,7 +1940,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-18-20-alpine-3-15
+      id: prep-1-18-20
       run: |
         set -e
 
@@ -1953,7 +1953,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.18.20-alpine-3.15"
+        VARIANT="1.18.20"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1963,51 +1963,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.18.20-alpine-3.15 - Build (PRs)
+    - name: 1.18.20 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-alpine-3.15
+        context: variants/1.18.20
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-alpine-3.15 - Build and push (master)
+    - name: 1.18.20 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-alpine-3.15
+        context: variants/1.18.20
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-alpine-3.15 - Build and push (release)
+    - name: 1.18.20 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-alpine-3.15
+        context: variants/1.18.20
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -2020,7 +2020,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.18.20-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2030,45 +2030,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2126,7 +2126,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-17-17-alpine-3-15
+      id: prep-1-17-17
       run: |
         set -e
 
@@ -2139,7 +2139,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.17.17-alpine-3.15"
+        VARIANT="1.17.17"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2149,51 +2149,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.17.17-alpine-3.15 - Build (PRs)
+    - name: 1.17.17 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-alpine-3.15
+        context: variants/1.17.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-alpine-3.15 - Build and push (master)
+    - name: 1.17.17 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-alpine-3.15
+        context: variants/1.17.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-alpine-3.15 - Build and push (release)
+    - name: 1.17.17 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-alpine-3.15
+        context: variants/1.17.17
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -2206,7 +2206,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.17.17-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2216,45 +2216,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2312,7 +2312,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-16-15-alpine-3-15
+      id: prep-1-16-15
       run: |
         set -e
 
@@ -2325,7 +2325,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.16.15-alpine-3.15"
+        VARIANT="1.16.15"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2335,51 +2335,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.16.15-alpine-3.15 - Build (PRs)
+    - name: 1.16.15 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-alpine-3.15
+        context: variants/1.16.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-alpine-3.15 - Build and push (master)
+    - name: 1.16.15 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-alpine-3.15
+        context: variants/1.16.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-alpine-3.15 - Build and push (release)
+    - name: 1.16.15 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-alpine-3.15
+        context: variants/1.16.15
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -2392,7 +2392,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.16.15-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2402,45 +2402,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2498,7 +2498,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-15-12-alpine-3-15
+      id: prep-1-15-12
       run: |
         set -e
 
@@ -2511,7 +2511,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.15.12-alpine-3.15"
+        VARIANT="1.15.12"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2521,51 +2521,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.15.12-alpine-3.15 - Build (PRs)
+    - name: 1.15.12 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-alpine-3.15
+        context: variants/1.15.12
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-alpine-3.15 - Build and push (master)
+    - name: 1.15.12 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-alpine-3.15
+        context: variants/1.15.12
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-alpine-3.15 - Build and push (release)
+    - name: 1.15.12 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-alpine-3.15
+        context: variants/1.15.12
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -2578,7 +2578,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.15.12-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2588,45 +2588,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2684,7 +2684,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-14-10-alpine-3-15
+      id: prep-1-14-10
       run: |
         set -e
 
@@ -2697,7 +2697,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.14.10-alpine-3.15"
+        VARIANT="1.14.10"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2707,51 +2707,51 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.14.10-alpine-3.15 - Build (PRs)
+    - name: 1.14.10 - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-alpine-3.15
+        context: variants/1.14.10
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-alpine-3.15 - Build and push (master)
+    - name: 1.14.10 - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-alpine-3.15
+        context: variants/1.14.10
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-alpine-3.15 - Build and push (release)
+    - name: 1.14.10 - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-alpine-3.15
+        context: variants/1.14.10
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15
+      id: prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh
       run: |
         set -e
 
@@ -2764,7 +2764,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15"
+        VARIANT="1.14.10-envsubst-git-jq-kustomize-sops-ssh"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2774,45 +2774,45 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build (PRs)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (master)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15 - Build and push (release)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v3
       with:
-        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-alpine-3-15.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
