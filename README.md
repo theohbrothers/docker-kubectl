@@ -10,36 +10,36 @@ Dockerized `kubectl` with useful tools.
 
 | Tag | Dockerfile Build Context |
 |:-------:|:---------:|
-| `:v1.28.2-alpine-3.15`, `:latest` | [View](variants/v1.28.2-alpine-3.15) |
-| `:v1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.27.6-alpine-3.15` | [View](variants/v1.27.6-alpine-3.15) |
-| `:v1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.26.9-alpine-3.15` | [View](variants/v1.26.9-alpine-3.15) |
-| `:v1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.25.14-alpine-3.15` | [View](variants/v1.25.14-alpine-3.15) |
-| `:v1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.24.17-alpine-3.15` | [View](variants/v1.24.17-alpine-3.15) |
-| `:v1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.23.17-alpine-3.15` | [View](variants/v1.23.17-alpine-3.15) |
-| `:v1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.22.17-alpine-3.15` | [View](variants/v1.22.17-alpine-3.15) |
-| `:v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.21.14-alpine-3.15` | [View](variants/v1.21.14-alpine-3.15) |
-| `:v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.20.15-alpine-3.15` | [View](variants/v1.20.15-alpine-3.15) |
-| `:v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.19.16-alpine-3.15` | [View](variants/v1.19.16-alpine-3.15) |
-| `:v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.18.20-alpine-3.15` | [View](variants/v1.18.20-alpine-3.15) |
-| `:v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.17.17-alpine-3.15` | [View](variants/v1.17.17-alpine-3.15) |
-| `:v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.16.15-alpine-3.15` | [View](variants/v1.16.15-alpine-3.15) |
-| `:v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.15.12-alpine-3.15` | [View](variants/v1.15.12-alpine-3.15) |
-| `:v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
-| `:v1.14.10-alpine-3.15` | [View](variants/v1.14.10-alpine-3.15) |
-| `:v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/v1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.28.2-alpine-3.15`, `:latest` | [View](variants/1.28.2-alpine-3.15) |
+| `:1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.28.2-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.27.6-alpine-3.15` | [View](variants/1.27.6-alpine-3.15) |
+| `:1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.27.6-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.26.9-alpine-3.15` | [View](variants/1.26.9-alpine-3.15) |
+| `:1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.26.9-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.25.14-alpine-3.15` | [View](variants/1.25.14-alpine-3.15) |
+| `:1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.25.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.24.17-alpine-3.15` | [View](variants/1.24.17-alpine-3.15) |
+| `:1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.23.17-alpine-3.15` | [View](variants/1.23.17-alpine-3.15) |
+| `:1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.22.17-alpine-3.15` | [View](variants/1.22.17-alpine-3.15) |
+| `:1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.21.14-alpine-3.15` | [View](variants/1.21.14-alpine-3.15) |
+| `:1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.20.15-alpine-3.15` | [View](variants/1.20.15-alpine-3.15) |
+| `:1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.19.16-alpine-3.15` | [View](variants/1.19.16-alpine-3.15) |
+| `:1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.18.20-alpine-3.15` | [View](variants/1.18.20-alpine-3.15) |
+| `:1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.17.17-alpine-3.15` | [View](variants/1.17.17-alpine-3.15) |
+| `:1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.16.15-alpine-3.15` | [View](variants/1.16.15-alpine-3.15) |
+| `:1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.15.12-alpine-3.15` | [View](variants/1.15.12-alpine-3.15) |
+| `:1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
+| `:1.14.10-alpine-3.15` | [View](variants/1.14.10-alpine-3.15) |
+| `:1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15` | [View](variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-alpine-3.15) |
 
 ## Development
 
