@@ -11,39 +11,39 @@ Dockerized `kubectl` with useful tools.
 | Tag | Dockerfile Build Context |
 |:-------:|:---------:|
 | `:1.30.3`, `:latest` | [View](variants/1.30.3) |
-| `:1.30.3-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.30.3-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.30.3-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.30.3-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.29.7` | [View](variants/1.29.7) |
-| `:1.29.7-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.29.7-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.29.7-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.29.7-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.28.12` | [View](variants/1.28.12) |
-| `:1.28.12-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.28.12-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.28.12-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.28.12-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.27.16` | [View](variants/1.27.16) |
-| `:1.27.16-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.27.16-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.26.15` | [View](variants/1.26.15) |
-| `:1.26.15-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.26.15-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.25.16` | [View](variants/1.25.16) |
-| `:1.25.16-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.25.16-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.24.17` | [View](variants/1.24.17) |
-| `:1.24.17-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.24.17-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.23.17` | [View](variants/1.23.17) |
-| `:1.23.17-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.23.17-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.22.17` | [View](variants/1.22.17) |
-| `:1.22.17-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.22.17-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.21.14` | [View](variants/1.21.14) |
-| `:1.21.14-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.21.14-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.20.15` | [View](variants/1.20.15) |
-| `:1.20.15-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.20.15-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.19.16` | [View](variants/1.19.16) |
-| `:1.19.16-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.19.16-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.18.20` | [View](variants/1.18.20) |
-| `:1.18.20-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.18.20-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.17.17` | [View](variants/1.17.17) |
-| `:1.17.17-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.17.17-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.16.15` | [View](variants/1.16.15) |
-| `:1.16.15-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.16.15-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.15.12` | [View](variants/1.15.12) |
-| `:1.15.12-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.15.12-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.14.10` | [View](variants/1.14.10) |
-| `:1.14.10-envsubst-git-jq-kustomize-sops-ssh` | [View](variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh) |
+| `:1.14.10-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-yq) |
 
 All variants are based on `alpine`.
 
