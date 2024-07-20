@@ -99,7 +99,7 @@ RUN apk add --no-cache openssh-client
 
         'yq' {
             @'
-RUN apk add --no-cache jq
+RUN apk add --no-cache yq
 
 
 '@
