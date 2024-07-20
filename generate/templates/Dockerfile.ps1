@@ -75,13 +75,16 @@ RUN apk add --no-cache curl \
         }
 
         'sops' {
+            $SOPS_VERSION = 'v3.9.0'
+            Generate-DownloadBinary @{
+                binary = 'sops'
+                version = $SOPS_VERSION
+                checksumsUrl = "https://github.com/getsops/sops/releases/download/$SOPS_VERSION/sops-$SOPS_VERSION.checksums.txt"
+                archiveformat = ''
+                testCommand = 'sops --version'
+            }
 
             @"
-RUN set -eux; \
-    wget -qO- https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops; \
-    chmod +x /usr/local/bin/sops; \
-    sha256sum /usr/local/bin/sops | grep '^185348fd77fc160d5bdf3cd20ecbc796163504fd3df196d7cb29000773657b74 '; \
-    sops --version
 
 RUN apk add --no-cache gnupg
 

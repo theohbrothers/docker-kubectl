@@ -41,11 +41,32 @@ RUN apk add --no-cache curl \
     && chmod +x /usr/local/bin/kustomize \
     && apk del curl
 
+# Install sops
 RUN set -eux; \
-    wget -qO- https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops; \
+    SOPS_VERSION=v3.9.0; \
+    case "$( uname -m )" in \
+        'x86_64') \
+            URL="https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.amd64"; \
+            SHA256=0d65660fbe785647ff4f1764d7f69edf598f79d6d79ebbef4a501909b6ff6b82; \
+            ;; \
+        'aarch64') \
+            URL="https://github.com/getsops/sops/releases/download/v3.9.0/sops-v3.9.0.linux.arm64"; \
+            SHA256=596f26de6d4f7d1cc44f9e27bfea3192ef77f810f31f3f4132a417860ab91ebc; \
+            ;; \
+        *) \
+            echo "Architecture not supported"; \
+            exit 1; \
+            ;; \
+    esac; \
+    FILE=sops; \
+    wget -q "$URL" -O "$FILE"; \
+    echo "$SHA256  $FILE" | sha256sum -c -; \
+    mkdir -pv /usr/local/bin; \
+    mv -v sops /usr/local/bin/sops; \
     chmod +x /usr/local/bin/sops; \
-    sha256sum /usr/local/bin/sops | grep '^185348fd77fc160d5bdf3cd20ecbc796163504fd3df196d7cb29000773657b74 '; \
-    sops --version
+    sops --version; \
+    :
+
 
 RUN apk add --no-cache gnupg
 
