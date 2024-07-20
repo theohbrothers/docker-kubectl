@@ -51,7 +51,7 @@ RUN apk add --no-cache gnupg
 
 RUN apk add --no-cache openssh-client
 
-RUN apk add --no-cache jq
+RUN apk add --no-cache yq
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
