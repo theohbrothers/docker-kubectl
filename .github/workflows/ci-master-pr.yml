@@ -108,7 +108,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3.outputs.REF_VARIANT }}
@@ -122,7 +122,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3.outputs.REF_VARIANT }}
@@ -135,7 +135,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3.outputs.VARIANT }}
@@ -176,7 +176,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -190,7 +190,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -203,7 +203,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.30.3-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-30-3-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -295,7 +295,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7.outputs.REF_VARIANT }}
@@ -309,7 +309,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7.outputs.REF_VARIANT }}
@@ -322,7 +322,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7.outputs.VARIANT }}
@@ -362,7 +362,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -376,7 +376,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -389,7 +389,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.29.7-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-29-7-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -481,7 +481,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12.outputs.REF_VARIANT }}
@@ -495,7 +495,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12.outputs.REF_VARIANT }}
@@ -508,7 +508,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12.outputs.VARIANT }}
@@ -548,7 +548,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -562,7 +562,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -575,7 +575,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.28.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-28-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -667,7 +667,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16.outputs.REF_VARIANT }}
@@ -681,7 +681,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16.outputs.REF_VARIANT }}
@@ -694,7 +694,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16.outputs.VARIANT }}
@@ -734,7 +734,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -748,7 +748,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -761,7 +761,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -853,7 +853,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15.outputs.REF_VARIANT }}
@@ -867,7 +867,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15.outputs.REF_VARIANT }}
@@ -880,7 +880,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15.outputs.VARIANT }}
@@ -920,7 +920,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -934,7 +934,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -947,7 +947,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1039,7 +1039,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16.outputs.REF_VARIANT }}
@@ -1053,7 +1053,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16.outputs.REF_VARIANT }}
@@ -1066,7 +1066,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16.outputs.VARIANT }}
@@ -1106,7 +1106,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1120,7 +1120,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1133,7 +1133,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1225,7 +1225,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_VARIANT }}
@@ -1239,7 +1239,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.REF_VARIANT }}
@@ -1252,7 +1252,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17.outputs.VARIANT }}
@@ -1292,7 +1292,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1306,7 +1306,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1319,7 +1319,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1411,7 +1411,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_VARIANT }}
@@ -1425,7 +1425,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.REF_VARIANT }}
@@ -1438,7 +1438,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17.outputs.VARIANT }}
@@ -1478,7 +1478,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1492,7 +1492,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1505,7 +1505,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1597,7 +1597,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_VARIANT }}
@@ -1611,7 +1611,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.REF_VARIANT }}
@@ -1624,7 +1624,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17.outputs.VARIANT }}
@@ -1664,7 +1664,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1678,7 +1678,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1691,7 +1691,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1783,7 +1783,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_VARIANT }}
@@ -1797,7 +1797,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.REF_VARIANT }}
@@ -1810,7 +1810,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14.outputs.VARIANT }}
@@ -1850,7 +1850,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1864,7 +1864,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -1877,7 +1877,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -1969,7 +1969,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_VARIANT }}
@@ -1983,7 +1983,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.REF_VARIANT }}
@@ -1996,7 +1996,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15.outputs.VARIANT }}
@@ -2036,7 +2036,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2050,7 +2050,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2063,7 +2063,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -2155,7 +2155,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_VARIANT }}
@@ -2169,7 +2169,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.REF_VARIANT }}
@@ -2182,7 +2182,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16.outputs.VARIANT }}
@@ -2222,7 +2222,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2236,7 +2236,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2249,7 +2249,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -2341,7 +2341,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_VARIANT }}
@@ -2355,7 +2355,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.REF_VARIANT }}
@@ -2368,7 +2368,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20.outputs.VARIANT }}
@@ -2408,7 +2408,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2422,7 +2422,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2435,7 +2435,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -2527,7 +2527,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_VARIANT }}
@@ -2541,7 +2541,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.REF_VARIANT }}
@@ -2554,7 +2554,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17.outputs.VARIANT }}
@@ -2594,7 +2594,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2608,7 +2608,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2621,7 +2621,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -2713,7 +2713,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_VARIANT }}
@@ -2727,7 +2727,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.REF_VARIANT }}
@@ -2740,7 +2740,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15.outputs.VARIANT }}
@@ -2780,7 +2780,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2794,7 +2794,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2807,7 +2807,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -2899,7 +2899,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_VARIANT }}
@@ -2913,7 +2913,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.REF_VARIANT }}
@@ -2926,7 +2926,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12.outputs.VARIANT }}
@@ -2966,7 +2966,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2980,7 +2980,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -2993,7 +2993,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}
@@ -3085,7 +3085,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_VARIANT }}
@@ -3099,7 +3099,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.REF_VARIANT }}
@@ -3112,7 +3112,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10.outputs.VARIANT }}
@@ -3152,7 +3152,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: false
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -3166,7 +3166,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.REF_VARIANT }}
@@ -3179,7 +3179,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-yq
-        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x
+        platforms: linux/386,linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-yq.outputs.VARIANT }}

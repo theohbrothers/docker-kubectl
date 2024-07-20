@@ -23,7 +23,7 @@ $VARIANTS = @(
                     package_version = $variant['package_version']
                     distro = $variant['distro']
                     distro_version = $variant['distro_version']
-                    platforms =  'linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x'
+                    platforms =  'linux/386,linux/amd64,linux/arm64'
                     components = $subVariant['components']
                     job_group_key = $variant['package_version']
                 }
