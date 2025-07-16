@@ -10,8 +10,8 @@ Dockerized `kubectl` with useful tools.
 
 | Tag | Dockerfile Build Context |
 |:-------:|:---------:|
-| `:1.33.2`, `:latest` | [View](variants/1.33.2) |
-| `:1.33.2-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.33.2-envsubst-git-jq-kustomize-sops-ssh-yq) |
+| `:1.33.3`, `:latest` | [View](variants/1.33.3) |
+| `:1.33.3-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.33.3-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.32.6` | [View](variants/1.32.6) |
 | `:1.32.6-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.32.6-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.31.10` | [View](variants/1.31.10) |
