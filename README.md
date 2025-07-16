@@ -14,8 +14,8 @@ Dockerized `kubectl` with useful tools.
 | `:1.33.3-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.33.3-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.32.6` | [View](variants/1.32.6) |
 | `:1.32.6-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.32.6-envsubst-git-jq-kustomize-sops-ssh-yq) |
-| `:1.31.10` | [View](variants/1.31.10) |
-| `:1.31.10-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.31.10-envsubst-git-jq-kustomize-sops-ssh-yq) |
+| `:1.31.11` | [View](variants/1.31.11) |
+| `:1.31.11-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.31.11-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.30.14` | [View](variants/1.30.14) |
 | `:1.30.14-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.30.14-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.29.15` | [View](variants/1.29.15) |
