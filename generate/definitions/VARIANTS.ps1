@@ -5,11 +5,10 @@ $local:VARIANTS_MATRIX = @(
     foreach ($v in $local:VERSIONS.kubectl.versions) {
         @{
             package_version = $v
-            distro = 'alpine'
-            distro_version = '3.20'
             subvariants = @(
                 @{ components = @(); tag_as_latest = if ($v -eq ($local:VERSIONS.kubectl.versions | ? { $_ -match '^\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
                 @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh', 'yq' ) }
+                @{ components = @( 'git', 'pwsh', 'sops' ) }
             )
         }
     }
@@ -21,9 +20,17 @@ $VARIANTS = @(
                 # Metadata object
                 _metadata = @{
                     package_version = $variant['package_version']
-                    distro = $variant['distro']
-                    distro_version = $variant['distro_version']
-                    platforms =  'linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x'
+                    distro = if ($subVariant['components'] -contains 'pwsh') {
+                        'mcr.microsoft.com/powershell'
+                    }else {
+                        'alpine'
+                    }
+                    distro_version = if ($subVariant['components'] -contains 'pwsh') {
+                        'lts-7.4-alpine-3.20'
+                    }else {
+                        '3.20'
+                    }
+                    platforms = 'linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x'
                     components = $subVariant['components']
                     job_group_key = $variant['package_version']
                 }
