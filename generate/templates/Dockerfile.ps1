@@ -42,7 +42,8 @@ RUN apk add --no-cache --virtual .gettext gettext \
     )" \
     && apk add --no-cache $runDeps \
     && apk del .gettext \
-    && mv /tmp/envsubst /usr/local/bin/
+    && mv /tmp/envsubst /usr/local/bin/ \
+    && envsubst --version
 
 
 '@
@@ -100,7 +101,7 @@ RUN apk add --no-cache openssh-client
 
         'yq' {
             @'
-RUN apk add --no-cache yq
+RUN apk add --no-cache yq-go
 
 
 '@

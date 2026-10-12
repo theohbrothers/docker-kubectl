@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.20
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
@@ -31,7 +31,8 @@ RUN apk add --no-cache --virtual .gettext gettext \
     )" \
     && apk add --no-cache $runDeps \
     && apk del .gettext \
-    && mv /tmp/envsubst /usr/local/bin/
+    && mv /tmp/envsubst /usr/local/bin/ \
+    && envsubst --version
 
 RUN apk add --no-cache git
 
@@ -52,7 +53,7 @@ RUN apk add --no-cache gnupg
 
 RUN apk add --no-cache openssh-client
 
-RUN apk add --no-cache yq
+RUN apk add --no-cache yq-go
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
