@@ -13,9 +13,9 @@ Dockerized `kubectl` with useful tools.
 | `:1.37.2`, `:latest` | [View](variants/1.37.2) |
 | `:1.37.2-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.37.2-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.37.2-git-pwsh-sops` | [View](variants/1.37.2-git-pwsh-sops) |
-| `:1.36.5` | [View](variants/1.36.5) |
-| `:1.36.5-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.36.5-envsubst-git-jq-kustomize-sops-ssh-yq) |
-| `:1.36.5-git-pwsh-sops` | [View](variants/1.36.5-git-pwsh-sops) |
+| `:1.36.6` | [View](variants/1.36.6) |
+| `:1.36.6-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.36.6-envsubst-git-jq-kustomize-sops-ssh-yq) |
+| `:1.36.6-git-pwsh-sops` | [View](variants/1.36.6-git-pwsh-sops) |
 | `:1.35.9` | [View](variants/1.35.9) |
 | `:1.35.9-envsubst-git-jq-kustomize-sops-ssh-yq` | [View](variants/1.35.9-envsubst-git-jq-kustomize-sops-ssh-yq) |
 | `:1.35.9-git-pwsh-sops` | [View](variants/1.35.9-git-pwsh-sops) |
