@@ -113,6 +113,19 @@ RUN apk add --no-cache openssh-client
 '@
         }
 
+        'step' {
+            $STEP_VERSION = "0.31.0"
+            Generate-DownloadBinary @{
+                binary = 'step'
+                version = $STEP_VERSION
+                checksumsUrl = "https://github.com/smallstep/cli/releases/download/v$STEP_VERSION/checksums.txt"
+                archiveformat = '.tar.gz'
+                # platforms = $VARIANT['_metadata']['platforms']
+                destination = '/usr/local/bin/step'
+                testCommand = 'step version'
+            }
+        }
+
         'yq' {
             @'
 RUN apk add --no-cache yq-go
