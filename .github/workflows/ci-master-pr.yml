@@ -214,7 +214,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-37-3-git-pwsh-sops
+      id: prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -227,7 +227,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.37.3-git-pwsh-sops"
+        VARIANT="1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -237,45 +237,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.37.3-git-pwsh-sops - Build (PRs)
+    - name: 1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.37.3-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.37.3-git-pwsh-sops - Build and push (master)
+    - name: 1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.37.3-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.37.3-git-pwsh-sops - Build and push (release)
+    - name: 1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.37.3-git-pwsh-sops
+        context: variants/1.37.3-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-37-3-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.37.3-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.37.3-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.37.3-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.37.3-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.37.3-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.37.3-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.37.3-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-37-3-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -467,7 +534,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-36-7-git-pwsh-sops
+      id: prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -480,7 +547,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.36.7-git-pwsh-sops"
+        VARIANT="1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -490,45 +557,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.36.7-git-pwsh-sops - Build (PRs)
+    - name: 1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.36.7-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.36.7-git-pwsh-sops - Build and push (master)
+    - name: 1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.36.7-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.36.7-git-pwsh-sops - Build and push (release)
+    - name: 1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.36.7-git-pwsh-sops
+        context: variants/1.36.7-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-36-7-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.36.7-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.36.7-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.36.7-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.36.7-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.36.7-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.36.7-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.36.7-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-36-7-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -720,7 +854,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-35-11-git-pwsh-sops
+      id: prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -733,7 +867,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.35.11-git-pwsh-sops"
+        VARIANT="1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -743,45 +877,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.35.11-git-pwsh-sops - Build (PRs)
+    - name: 1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.35.11-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.35.11-git-pwsh-sops - Build and push (master)
+    - name: 1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.35.11-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.35.11-git-pwsh-sops - Build and push (release)
+    - name: 1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.35.11-git-pwsh-sops
+        context: variants/1.35.11-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-35-11-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.35.11-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.35.11-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.35.11-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.35.11-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.35.11-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.35.11-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.35.11-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-35-11-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -973,7 +1174,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-34-13-git-pwsh-sops
+      id: prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -986,7 +1187,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.34.13-git-pwsh-sops"
+        VARIANT="1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -996,45 +1197,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.34.13-git-pwsh-sops - Build (PRs)
+    - name: 1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.34.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.34.13-git-pwsh-sops - Build and push (master)
+    - name: 1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.34.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.34.13-git-pwsh-sops - Build and push (release)
+    - name: 1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.34.13-git-pwsh-sops
+        context: variants/1.34.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-34-13-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.34.13-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.34.13-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.34.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.34.13-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.34.13-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.34.13-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.34.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-34-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1226,7 +1494,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-33-13-git-pwsh-sops
+      id: prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -1239,7 +1507,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.33.13-git-pwsh-sops"
+        VARIANT="1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1249,45 +1517,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.33.13-git-pwsh-sops - Build (PRs)
+    - name: 1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.33.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.33.13-git-pwsh-sops - Build and push (master)
+    - name: 1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.33.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.33.13-git-pwsh-sops - Build and push (release)
+    - name: 1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.33.13-git-pwsh-sops
+        context: variants/1.33.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-33-13-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.33.13-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.33.13-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.33.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.33.13-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.33.13-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.33.13-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.33.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-33-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1479,7 +1814,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-32-13-git-pwsh-sops
+      id: prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -1492,7 +1827,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.32.13-git-pwsh-sops"
+        VARIANT="1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1502,45 +1837,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.32.13-git-pwsh-sops - Build (PRs)
+    - name: 1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.32.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.32.13-git-pwsh-sops - Build and push (master)
+    - name: 1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.32.13-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.32.13-git-pwsh-sops - Build and push (release)
+    - name: 1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.32.13-git-pwsh-sops
+        context: variants/1.32.13-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-32-13-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.32.13-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.32.13-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.32.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.32.13-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.32.13-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.32.13-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.32.13-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-32-13-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1732,7 +2134,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-31-14-git-pwsh-sops
+      id: prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -1745,7 +2147,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.31.14-git-pwsh-sops"
+        VARIANT="1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -1755,45 +2157,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.31.14-git-pwsh-sops - Build (PRs)
+    - name: 1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.31.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.31.14-git-pwsh-sops - Build and push (master)
+    - name: 1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.31.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.31.14-git-pwsh-sops - Build and push (release)
+    - name: 1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.31.14-git-pwsh-sops
+        context: variants/1.31.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-31-14-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.31.14-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.31.14-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.31.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.31.14-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.31.14-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.31.14-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.31.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-31-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -1985,7 +2454,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-30-14-git-pwsh-sops
+      id: prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -1998,7 +2467,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.30.14-git-pwsh-sops"
+        VARIANT="1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2008,45 +2477,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.30.14-git-pwsh-sops - Build (PRs)
+    - name: 1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.30.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.30.14-git-pwsh-sops - Build and push (master)
+    - name: 1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.30.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.30.14-git-pwsh-sops - Build and push (release)
+    - name: 1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.30.14-git-pwsh-sops
+        context: variants/1.30.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-30-14-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.30.14-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.30.14-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.30.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.30.14-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.30.14-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.30.14-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.30.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-30-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2238,7 +2774,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-29-15-git-pwsh-sops
+      id: prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -2251,7 +2787,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.29.15-git-pwsh-sops"
+        VARIANT="1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2261,45 +2797,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.29.15-git-pwsh-sops - Build (PRs)
+    - name: 1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.29.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.29.15-git-pwsh-sops - Build and push (master)
+    - name: 1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.29.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.29.15-git-pwsh-sops - Build and push (release)
+    - name: 1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.29.15-git-pwsh-sops
+        context: variants/1.29.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-29-15-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.29.15-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.29.15-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.29.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.29.15-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.29.15-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.29.15-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.29.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-29-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2491,7 +3094,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-28-15-git-pwsh-sops
+      id: prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -2504,7 +3107,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.28.15-git-pwsh-sops"
+        VARIANT="1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2514,45 +3117,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.28.15-git-pwsh-sops - Build (PRs)
+    - name: 1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.28.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.15-git-pwsh-sops - Build and push (master)
+    - name: 1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.28.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.28.15-git-pwsh-sops - Build and push (release)
+    - name: 1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.28.15-git-pwsh-sops
+        context: variants/1.28.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-28-15-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.28.15-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.28.15-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.28.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.28.15-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.28.15-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.28.15-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.28.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-28-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2744,7 +3414,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-27-16-git-pwsh-sops
+      id: prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -2757,7 +3427,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.27.16-git-pwsh-sops"
+        VARIANT="1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -2767,45 +3437,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.27.16-git-pwsh-sops - Build (PRs)
+    - name: 1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.27.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.16-git-pwsh-sops - Build and push (master)
+    - name: 1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.27.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.27.16-git-pwsh-sops - Build and push (release)
+    - name: 1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.27.16-git-pwsh-sops
+        context: variants/1.27.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-27-16-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.27.16-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.27.16-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.27.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.27.16-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.27.16-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.27.16-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.27.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-27-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -2997,7 +3734,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-26-15-git-pwsh-sops
+      id: prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -3010,7 +3747,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.26.15-git-pwsh-sops"
+        VARIANT="1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -3020,45 +3757,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.26.15-git-pwsh-sops - Build (PRs)
+    - name: 1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.26.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.15-git-pwsh-sops - Build and push (master)
+    - name: 1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.26.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.26.15-git-pwsh-sops - Build and push (release)
+    - name: 1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.26.15-git-pwsh-sops
+        context: variants/1.26.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-26-15-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.26.15-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.26.15-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.26.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.26.15-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.26.15-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.26.15-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.26.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-26-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -3250,7 +4054,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-25-16-git-pwsh-sops
+      id: prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -3263,7 +4067,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.25.16-git-pwsh-sops"
+        VARIANT="1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -3273,45 +4077,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.25.16-git-pwsh-sops - Build (PRs)
+    - name: 1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.25.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.16-git-pwsh-sops - Build and push (master)
+    - name: 1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.25.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.25.16-git-pwsh-sops - Build and push (release)
+    - name: 1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.25.16-git-pwsh-sops
+        context: variants/1.25.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-25-16-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.25.16-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.25.16-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.25.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.25.16-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.25.16-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.25.16-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.25.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-25-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -3503,7 +4374,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-24-17-git-pwsh-sops
+      id: prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -3516,7 +4387,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.24.17-git-pwsh-sops"
+        VARIANT="1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -3526,45 +4397,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.24.17-git-pwsh-sops - Build (PRs)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.24.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-git-pwsh-sops - Build and push (master)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.24.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.24.17-git-pwsh-sops - Build and push (release)
+    - name: 1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.24.17-git-pwsh-sops
+        context: variants/1.24.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-24-17-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.24.17-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.24.17-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.24.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.24.17-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.24.17-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.24.17-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.24.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-24-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -3756,7 +4694,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-23-17-git-pwsh-sops
+      id: prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -3769,7 +4707,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.23.17-git-pwsh-sops"
+        VARIANT="1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -3779,45 +4717,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.23.17-git-pwsh-sops - Build (PRs)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.23.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-git-pwsh-sops - Build and push (master)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.23.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.23.17-git-pwsh-sops - Build and push (release)
+    - name: 1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.23.17-git-pwsh-sops
+        context: variants/1.23.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-23-17-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.23.17-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.23.17-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.23.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.23.17-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.23.17-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.23.17-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.23.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-23-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -4009,7 +5014,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-22-17-git-pwsh-sops
+      id: prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -4022,7 +5027,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.22.17-git-pwsh-sops"
+        VARIANT="1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -4032,45 +5037,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.22.17-git-pwsh-sops - Build (PRs)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.22.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-git-pwsh-sops - Build and push (master)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.22.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.22.17-git-pwsh-sops - Build and push (release)
+    - name: 1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.22.17-git-pwsh-sops
+        context: variants/1.22.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-22-17-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.22.17-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.22.17-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.22.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.22.17-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.22.17-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.22.17-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.22.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-22-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -4262,7 +5334,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-21-14-git-pwsh-sops
+      id: prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -4275,7 +5347,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.21.14-git-pwsh-sops"
+        VARIANT="1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -4285,45 +5357,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.21.14-git-pwsh-sops - Build (PRs)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.21.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-git-pwsh-sops - Build and push (master)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.21.14-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.21.14-git-pwsh-sops - Build and push (release)
+    - name: 1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.21.14-git-pwsh-sops
+        context: variants/1.21.14-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-21-14-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.21.14-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.21.14-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.21.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.21.14-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.21.14-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.21.14-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.21.14-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-21-14-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -4515,7 +5654,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-20-15-git-pwsh-sops
+      id: prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -4528,7 +5667,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.20.15-git-pwsh-sops"
+        VARIANT="1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -4538,45 +5677,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.20.15-git-pwsh-sops - Build (PRs)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.20.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-git-pwsh-sops - Build and push (master)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.20.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.20.15-git-pwsh-sops - Build and push (release)
+    - name: 1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.20.15-git-pwsh-sops
+        context: variants/1.20.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-20-15-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.20.15-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.20.15-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.20.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.20.15-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.20.15-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.20.15-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.20.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-20-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -4768,7 +5974,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-19-16-git-pwsh-sops
+      id: prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -4781,7 +5987,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.19.16-git-pwsh-sops"
+        VARIANT="1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -4791,45 +5997,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.19.16-git-pwsh-sops - Build (PRs)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.19.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-git-pwsh-sops - Build and push (master)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.19.16-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.19.16-git-pwsh-sops - Build and push (release)
+    - name: 1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.19.16-git-pwsh-sops
+        context: variants/1.19.16-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-19-16-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.19.16-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.19.16-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.19.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.19.16-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.19.16-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.19.16-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.19.16-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-19-16-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -5021,7 +6294,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-18-20-git-pwsh-sops
+      id: prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -5034,7 +6307,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.18.20-git-pwsh-sops"
+        VARIANT="1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -5044,45 +6317,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.18.20-git-pwsh-sops - Build (PRs)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.18.20-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-git-pwsh-sops - Build and push (master)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.18.20-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.18.20-git-pwsh-sops - Build and push (release)
+    - name: 1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.18.20-git-pwsh-sops
+        context: variants/1.18.20-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-18-20-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.18.20-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.18.20-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.18.20-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.18.20-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.18.20-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.18.20-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.18.20-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-18-20-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -5274,7 +6614,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-17-17-git-pwsh-sops
+      id: prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -5287,7 +6627,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.17.17-git-pwsh-sops"
+        VARIANT="1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -5297,45 +6637,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.17.17-git-pwsh-sops - Build (PRs)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.17.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-git-pwsh-sops - Build and push (master)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.17.17-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.17.17-git-pwsh-sops - Build and push (release)
+    - name: 1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.17.17-git-pwsh-sops
+        context: variants/1.17.17-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-17-17-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.17.17-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.17.17-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.17.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.17.17-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.17.17-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.17.17-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.17.17-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-17-17-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -5527,7 +6934,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-16-15-git-pwsh-sops
+      id: prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -5540,7 +6947,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.16.15-git-pwsh-sops"
+        VARIANT="1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -5550,45 +6957,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.16.15-git-pwsh-sops - Build (PRs)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.16.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-git-pwsh-sops - Build and push (master)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.16.15-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.16.15-git-pwsh-sops - Build and push (release)
+    - name: 1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.16.15-git-pwsh-sops
+        context: variants/1.16.15-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-16-15-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.16.15-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.16.15-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.16.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.16.15-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.16.15-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.16.15-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.16.15-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-16-15-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -5780,7 +7254,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-15-12-git-pwsh-sops
+      id: prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -5793,7 +7267,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.15.12-git-pwsh-sops"
+        VARIANT="1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -5803,45 +7277,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.15.12-git-pwsh-sops - Build (PRs)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.15.12-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-git-pwsh-sops - Build and push (master)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.15.12-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.15.12-git-pwsh-sops - Build and push (release)
+    - name: 1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.15.12-git-pwsh-sops
+        context: variants/1.15.12-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-15-12-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.15.12-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.15.12-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.15.12-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.15.12-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.15.12-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.15.12-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.15.12-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-15-12-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -6033,7 +7574,7 @@ jobs:
 
     # This step generates the docker tags
     - name: Prepare
-      id: prep-1-14-10-git-pwsh-sops
+      id: prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq
       run: |
         set -e
 
@@ -6046,7 +7587,7 @@ jobs:
         # Generate docker image tags
         # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
         # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
-        VARIANT="1.14.10-git-pwsh-sops"
+        VARIANT="1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq"
         REF_VARIANT="${REF}-${VARIANT}"
         REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
 
@@ -6056,45 +7597,112 @@ jobs:
         echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
         echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
 
-    - name: 1.14.10-git-pwsh-sops - Build (PRs)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build (PRs)
       # Run only on pull requests
       if: github.event_name == 'pull_request'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.14.10-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: false
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-git-pwsh-sops - Build and push (master)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (master)
       # Run only on master
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.14.10-git-pwsh-sops
-        platforms: linux/amd64,linux/arm64
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-    - name: 1.14.10-git-pwsh-sops - Build and push (release)
+    - name: 1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq - Build and push (release)
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v5
       with:
-        context: variants/1.14.10-git-pwsh-sops
+        context: variants/1.14.10-envsubst-git-jq-kustomize-sops-ssh-step-yq
+        platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-envsubst-git-jq-kustomize-sops-ssh-step-yq.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    # This step generates the docker tags
+    - name: Prepare
+      id: prep-1-14-10-git-pwsh-sops-step
+      run: |
+        set -e
+
+        # Get ref, i.e. <branch_name> from refs/heads/<branch_name>, or <tag-name> from refs/tags/<tag_name>. E.g. 'master' or 'v0.0.0'
+        REF=$( echo "${GITHUB_REF}" | rev | cut -d '/' -f 1 | rev )
+
+        # Get short commit hash E.g. 'abc0123'
+        SHA=$( echo "${GITHUB_SHA}" | cut -c1-7 )
+
+        # Generate docker image tags
+        # E.g. 'v0.0.0-<variant>' and 'v0.0.0-abc0123-<variant>'
+        # E.g. 'master-<variant>' and 'master-abc0123-<variant>'
+        VARIANT="1.14.10-git-pwsh-sops-step"
+        REF_VARIANT="${REF}-${VARIANT}"
+        REF_SHA_VARIANT="${REF}-${SHA}-${VARIANT}"
+
+        # Pass variables to next step
+        echo "VARIANT_BUILD_DIR=$VARIANT_BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "VARIANT=$VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_VARIANT=$REF_VARIANT" >> $GITHUB_OUTPUT
+        echo "REF_SHA_VARIANT=$REF_SHA_VARIANT" >> $GITHUB_OUTPUT
+
+    - name: 1.14.10-git-pwsh-sops-step - Build (PRs)
+      # Run only on pull requests
+      if: github.event_name == 'pull_request'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.14.10-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: false
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.14.10-git-pwsh-sops-step - Build and push (master)
+      # Run only on master
+      if: github.ref == 'refs/heads/master'
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.14.10-git-pwsh-sops-step
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_VARIANT }}
-          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops.outputs.REF_SHA_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+    - name: 1.14.10-git-pwsh-sops-step - Build and push (release)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: docker/build-push-action@v5
+      with:
+        context: variants/1.14.10-git-pwsh-sops-step
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_VARIANT }}
+          ${{ github.repository }}:${{ steps.prep-1-14-10-git-pwsh-sops-step.outputs.REF_SHA_VARIANT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 

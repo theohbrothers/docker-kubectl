@@ -8,7 +8,8 @@ $local:VARIANTS_MATRIX = @(
             subvariants = @(
                 @{ components = @(); tag_as_latest = if ($v -eq ($local:VERSIONS.kubectl.versions | ? { $_ -match '^\d+\.\d+\.\d+$' } | Select-Object -First 1 )) { $true } else { $false } }
                 @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh', 'yq' ) }
-                @{ components = @( 'git', 'pwsh', 'sops' ) }
+                @{ components = @( 'envsubst', 'git', 'jq', 'kustomize', 'sops', 'ssh', 'step', 'yq' ) }
+                @{ components = @( 'git', 'pwsh', 'sops', 'step' ) }
             )
         }
     }
@@ -24,6 +25,8 @@ $VARIANTS = @(
                     distro_version = '3.24'
                     platforms = if ($subVariant['components'] -contains 'pwsh') {
                         'linux/amd64,linux/arm64'
+                    } elseif ($subVariant['components'] -contains 'step') {
+                        'linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64'
                     } else {
                         'linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/s390x'
                     }
